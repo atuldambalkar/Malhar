@@ -168,6 +168,11 @@
       <version>2.1.0</version>
       <optional>true</optional>
     </dependency>
+      <dependency>
+          <groupId>org.apache.commons</groupId>
+          <artifactId>commons-math3</artifactId>
+          <version>3.3-SNAPSHOT</version>
+      </dependency>
 
   </dependencies>
 </project>
