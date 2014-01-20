@@ -13,7 +13,7 @@ public class OLSRegressionModelUpdaterOperator extends BaseOperator {
 
     private SimpleRegression result = new SimpleRegression();
 
-    public transient DefaultOutputPort<Double> outputPort = new DefaultOutputPort<Double>();
+    public transient DefaultOutputPort<OutputData> outputPort = new DefaultOutputPort<OutputData>();
 
     public transient DefaultInputPort<SimpleRegression> simpleRegressionInputPort = new DefaultInputPort<SimpleRegression>() {
         @Override
@@ -26,8 +26,12 @@ public class OLSRegressionModelUpdaterOperator extends BaseOperator {
         @Override
         public void process(Double query) {
             if (result.getN() > 0) {
-                double prediction = result.predict(query);
-                outputPort.emit(prediction);
+                OutputData output = new OutputData();
+                output.query = query;
+                output.intercept = result.getIntercept();
+                output.slope = result.getSlope();
+                output.prediction = result.predict(query);
+                outputPort.emit(output);
             }
         }
     };

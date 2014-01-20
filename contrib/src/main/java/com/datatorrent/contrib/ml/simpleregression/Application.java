@@ -33,12 +33,12 @@ public class Application implements StreamingApplication {
         dag.setOutputPortAttribute(olsModelUpdater.outputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
         dag.setAttribute(olsModelUpdater, Context.OperatorContext.APPLICATION_WINDOW_COUNT, 5);
 
-        ConsoleOutputOperator console = dag.addOperator("console", new ConsoleOutputOperator());
+        ConsoleOutputOperator console = new ConsoleOutputOperator();
+        dag.addOperator("console", console);
 
         dag.addStream("ingen", input.trainingDataOutputPort, olsRegression.inputPort);
         dag.addStream("querygen", input.queryOutputPort, olsModelUpdater.queryPort);
         dag.addStream("olsmodels", olsRegression.simpleRegressionOutputPort, olsModelUpdater.simpleRegressionInputPort);
         dag.addStream("olsresult", olsModelUpdater.outputPort, console.input);
-
     }
 }
