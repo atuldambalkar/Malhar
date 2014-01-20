@@ -29,7 +29,6 @@ public class Application implements StreamingApplication {
         dag.setAttribute(olsRegression, Context.OperatorContext.APPLICATION_WINDOW_COUNT, 5);
 
         OLSRegressionModelUpdaterOperator olsModelUpdater = dag.addOperator("olsModelUpdater", OLSRegressionModelUpdaterOperator.class);
-        dag.setInputPortAttribute(olsModelUpdater.simpleRegressionInputPort, Context.PortContext.PARTITION_PARALLEL, true);
         dag.setInputPortAttribute(olsModelUpdater.queryPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
         dag.setOutputPortAttribute(olsModelUpdater.outputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
         dag.setAttribute(olsModelUpdater, Context.OperatorContext.APPLICATION_WINDOW_COUNT, 5);

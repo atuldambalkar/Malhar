@@ -15,4 +15,18 @@ public class TrainingData {
         this.x = x;
         this.y = y;
     }
+
+    @Override
+    public int hashCode() {
+        return (int)(x * y);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (obj instanceof TrainingData) {
+            TrainingData obj1 = (TrainingData)obj;
+            return this.x == obj1.x && this.y == obj1.y;
+        }
+        return false;
+    }
 }
