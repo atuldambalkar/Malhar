@@ -3,6 +3,7 @@ package com.datatorrent.contrib.ml.simpleregression;
 import com.datatorrent.api.BaseOperator;
 import com.datatorrent.api.DefaultInputPort;
 import com.datatorrent.api.DefaultOutputPort;
+import com.datatorrent.api.annotation.ShipContainingJars;
 import org.apache.commons.math3.stat.regression.SimpleRegression;
 
 
@@ -11,6 +12,7 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
  *
  * It uses using SimpleRegression implementation from Apache Commons Math API.
  */
+@ShipContainingJars(classes = {SimpleRegression.class})
 public class OLSRegressionModelOperator extends BaseOperator {
 
     private SimpleRegression simpleRegression = new SimpleRegression();
