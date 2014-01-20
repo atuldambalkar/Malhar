@@ -12,7 +12,7 @@ import java.util.Random;
 public class InputGenerator implements InputOperator {
 
     private static final Logger logger = LoggerFactory.getLogger(InputGenerator.class);
-    private int blastCount = 10000;
+    private int blastCount = 5;
     private Random random = new Random();
 
     @OutputPortFieldAnnotation(name = "trainingDataOutput")
@@ -57,7 +57,6 @@ public class InputGenerator implements InputOperator {
 
     @Override
     public void emitTuples() {
-        boolean elapsedTimeSent = false;
 
         for (int i = 0; i < blastCount; ++i) {
             int waitingTime = nextRandomId(3600, 36000);
@@ -65,11 +64,8 @@ public class InputGenerator implements InputOperator {
             double eruptionDuration = -2.15 + 0.05 * waitingTime;
             this.trainingDataOutputPort.emit(new TrainingData(waitingTime, eruptionDuration));
 
-            if (!elapsedTimeSent) {
-                if (i % 100 == 0) {
-                    this.queryOutputPort.emit(54.0 + waitingTime);
-                    elapsedTimeSent = true;
-                }
+            if (i % 1000 == 0) {
+                this.queryOutputPort.emit(54.0 + waitingTime);
             }
         }
     }

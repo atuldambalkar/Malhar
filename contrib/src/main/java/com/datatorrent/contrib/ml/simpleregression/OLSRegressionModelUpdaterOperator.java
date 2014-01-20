@@ -12,7 +12,6 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
 public class OLSRegressionModelUpdaterOperator extends BaseOperator {
 
     private SimpleRegression result = new SimpleRegression();
-    private double query;
 
     public transient DefaultOutputPort<Double> outputPort = new DefaultOutputPort<Double>();
 
@@ -25,15 +24,11 @@ public class OLSRegressionModelUpdaterOperator extends BaseOperator {
 
     public transient DefaultInputPort<Double> queryPort = new DefaultInputPort<Double>() {
         @Override
-        public void process(Double queryInput) {
-            query = queryInput;
+        public void process(Double query) {
+            if (result.getN() > 0) {
+                double prediction = result.predict(query);
+                outputPort.emit(prediction);
+            }
         }
     };
-
-    @Override
-    public void endWindow() {
-        if (result.getN() > 0) {
-            outputPort.emit(result.predict(query));
-        }
-    }
 }
