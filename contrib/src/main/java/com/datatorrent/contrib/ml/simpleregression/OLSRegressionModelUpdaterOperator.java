@@ -16,7 +16,7 @@ public class OLSRegressionModelUpdaterOperator extends BaseOperator {
 
     public transient DefaultOutputPort<OutputData> outputPort = new DefaultOutputPort<OutputData>();
 
-    public transient DefaultInputPort<SimpleRegression> simpleRegressionInputPort = new DefaultInputPort<SimpleRegression>() {
+    public transient DefaultInputPort<SimpleRegression> modelInputPort = new DefaultInputPort<SimpleRegression>() {
         @Override
         public void process(SimpleRegression simpleRegression) {
             result.append(simpleRegression);

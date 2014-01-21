@@ -31,6 +31,12 @@ public class Application implements StreamingApplication {
         dag.setOutputPortAttribute(olsRegression.simpleRegressionOutputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
         dag.setAttribute(olsRegression, Context.OperatorContext.APPLICATION_WINDOW_COUNT, 5);
 
+//        OLSRegressionModelAggregatorOperator olsModelAggregator =
+//                dag.addOperator("olsModelAggregator", OLSRegressionModelAggregatorOperator.class);
+//        dag.setInputPortAttribute(olsModelAggregator.simpleRegressionInputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
+//        dag.setOutputPortAttribute(olsModelAggregator.aggregatedModelOutputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
+//        dag.setAttribute(olsModelAggregator, Context.OperatorContext.APPLICATION_WINDOW_COUNT, 5);
+
         OLSRegressionModelUpdaterOperator olsModelUpdater = dag.addOperator("olsModelUpdater", OLSRegressionModelUpdaterOperator.class);
         dag.setInputPortAttribute(olsModelUpdater.queryPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
         dag.setOutputPortAttribute(olsModelUpdater.outputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
@@ -41,7 +47,9 @@ public class Application implements StreamingApplication {
 
         dag.addStream("ingen", input.trainingDataOutputPort, olsRegression.inputPort);
         dag.addStream("querygen", input.queryOutputPort, olsModelUpdater.queryPort);
-        dag.addStream("olsmodels", olsRegression.simpleRegressionOutputPort, olsModelUpdater.simpleRegressionInputPort);
+        dag.addStream("olsmodels", olsRegression.simpleRegressionOutputPort, olsModelUpdater.modelInputPort);
+//        dag.addStream("olsmodels", olsRegression.simpleRegressionOutputPort, olsModelAggregator.simpleRegressionInputPort);
+//        dag.addStream("olsaggrmodels", olsModelAggregator.aggregatedModelOutputPort, olsModelUpdater.modelInputPort);
         dag.addStream("olsresult", olsModelUpdater.outputPort, console.input);
     }
 }
