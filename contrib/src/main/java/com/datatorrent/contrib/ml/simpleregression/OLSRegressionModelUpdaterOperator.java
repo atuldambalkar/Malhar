@@ -12,6 +12,7 @@ import org.apache.commons.math3.stat.regression.SimpleRegression;
 public class OLSRegressionModelUpdaterOperator extends BaseOperator {
 
     private SimpleRegression result = new SimpleRegression();
+    private OutputData output = new OutputData();
 
     public transient DefaultOutputPort<OutputData> outputPort = new DefaultOutputPort<OutputData>();
 
@@ -26,7 +27,6 @@ public class OLSRegressionModelUpdaterOperator extends BaseOperator {
         @Override
         public void process(Double query) {
             if (result.getN() > 0) {
-                OutputData output = new OutputData();
                 output.query = query;
                 output.intercept = result.getIntercept();
                 output.slope = result.getSlope();
