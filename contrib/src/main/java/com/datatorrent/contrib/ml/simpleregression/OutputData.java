@@ -13,6 +13,7 @@ public class OutputData {
 
     @Override
     public String toString() {
-        return String.format("Intercept: %f, Slope: %f, Query: %f, Prediction: %f", intercept, slope, query, prediction);
+//        return String.format("Intercept: %f, Slope: %f, Queried: %f, Prediction: %f", intercept, slope, query, prediction);
+        return String.format("Query home size: %f (Sq. Feet), Predicted home price: %f (K USD)", query, prediction);
     }
 }
