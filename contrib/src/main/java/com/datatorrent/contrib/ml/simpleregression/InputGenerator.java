@@ -59,13 +59,13 @@ public class InputGenerator implements InputOperator {
     public void emitTuples() {
 
         for (int i = 0; i < blastCount; ++i) {
-            int waitingTime = nextRandomId(3600, 36000);
+            int size = nextRandomId(500, 3000);
 
-            double eruptionDuration = -2.15 + 0.05 * waitingTime;
-            this.trainingDataOutputPort.emit(new TrainingData(waitingTime, eruptionDuration));
+            double price = 1.3 + 1.1 * size;
+            this.trainingDataOutputPort.emit(new TrainingData(size, price));
 
             if (i % 1000 == 0) {
-                this.queryOutputPort.emit(54.0 + waitingTime);
+                this.queryOutputPort.emit(100.0 + size);
             }
         }
     }
