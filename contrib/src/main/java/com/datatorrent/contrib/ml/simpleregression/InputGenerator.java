@@ -12,7 +12,7 @@ import java.util.Random;
 public class InputGenerator implements InputOperator {
 
     private static final Logger logger = LoggerFactory.getLogger(InputGenerator.class);
-    private int blastCount = 5;
+    private int blastCount = 10000;
     private Random random = new Random();
 
     @OutputPortFieldAnnotation(name = "trainingDataOutput")

@@ -19,6 +19,7 @@ public class Application implements StreamingApplication {
         dag.setAttribute(DAG.APPLICATION_NAME, "SimpleRegressionApplication");
 
         InputGenerator input = dag.addOperator("input", InputGenerator.class);
+        input.setBlastCount(10000);
         dag.setOutputPortAttribute(input.queryOutputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
         dag.setAttribute(input, Context.OperatorContext.INITIAL_PARTITION_COUNT, 2);
 
