@@ -1,7 +1,7 @@
 package com.datatorrent.contrib.ml.simpleregression;
 
 /**
- * Training data class to capture Old-Faithful training data.
+ * Training data class to capture univariate training data.
  */
 public class TrainingData {
 

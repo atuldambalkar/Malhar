@@ -9,6 +9,11 @@ import org.slf4j.LoggerFactory;
 
 import java.util.Random;
 
+/**
+ * Generate the training data tuples with single feature/variable liner regression model.
+ *
+ * Also generate query data.
+ */
 public class InputGenerator implements InputOperator {
 
     private static final Logger logger = LoggerFactory.getLogger(InputGenerator.class);
