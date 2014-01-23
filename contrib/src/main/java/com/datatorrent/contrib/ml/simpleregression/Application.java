@@ -51,6 +51,6 @@ public class Application implements StreamingApplication {
         dag.addStream("olsmodels", olsRegression.simpleRegressionOutputPort, olsModelUpdater.modelInputPort);
 //        dag.addStream("olsmodels", olsRegression.simpleRegressionOutputPort, olsModelAggregator.simpleRegressionInputPort);
 //        dag.addStream("olsaggrmodels", olsModelAggregator.aggregatedModelOutputPort, olsModelUpdater.modelInputPort);
-        dag.addStream("olsresult", olsModelUpdater.outputPort, console.input);
+        dag.addStream("olsresult", olsModelUpdater.outputPort, console.input).setLocality(DAG.Locality.CONTAINER_LOCAL);
     }
 }
