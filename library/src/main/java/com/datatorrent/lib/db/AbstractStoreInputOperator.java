@@ -15,41 +15,30 @@
  */
 package com.datatorrent.lib.db;
 
-import com.datatorrent.api.BaseOperator;
 import com.datatorrent.api.Context.OperatorContext;
-import com.datatorrent.api.DefaultInputPort;
-import com.datatorrent.api.annotation.InputPortFieldAnnotation;
+import com.datatorrent.api.DefaultOutputPort;
+import com.datatorrent.api.InputOperator;
+import com.datatorrent.api.annotation.OutputPortFieldAnnotation;
 import java.io.IOException;
-import java.util.Map;
 
 /**
- * This abstract class is for any implementation of an output adapter of non-transactional key value store without the transactional exactly once feature.
+ * This abstract class is for any implementation of an input adapter of a store {@link Connectable}
  *
  * @param <T> The tuple type
  * @param <S> The store type
- * @since 0.9.3
  */
-public abstract class AbstractKeyValueStoreOutputOperator<T, S extends KeyValueStore> extends BaseOperator
+public abstract class AbstractStoreInputOperator<T, S extends Connectable> implements InputOperator
 {
-  protected S store;
-
   /**
-   * The input port.
+   * The output port.
    */
-  @InputPortFieldAnnotation(name = "in", optional = true)
-  public final transient DefaultInputPort<T> input = new DefaultInputPort<T>()
-  {
-    @Override
-    public void process(T t)
-    {
-      processTuple(t);
-    }
-
-  };
-
+  @OutputPortFieldAnnotation(name = "out")
+  final public transient DefaultOutputPort<T> outputPort = new DefaultOutputPort<T>();
+  protected S store;
   /**
    * Gets the store.
-   * @return
+   *
+   * @return the store
    */
   public S getStore()
   {
@@ -58,6 +47,7 @@ public abstract class AbstractKeyValueStoreOutputOperator<T, S extends KeyValueS
 
   /**
    * Sets the store.
+   *
    * @param store
    */
   public void setStore(S store)
@@ -65,8 +55,19 @@ public abstract class AbstractKeyValueStoreOutputOperator<T, S extends KeyValueS
     this.store = store;
   }
 
+
   @Override
-  public void setup(OperatorContext context)
+  public void beginWindow(long l)
+  {
+  }
+
+  @Override
+  public void endWindow()
+  {
+  }
+
+  @Override
+  public void setup(OperatorContext t1)
   {
     try {
       store.connect();
@@ -77,25 +78,13 @@ public abstract class AbstractKeyValueStoreOutputOperator<T, S extends KeyValueS
   }
 
   @Override
-  public void beginWindow(long windowId)
-  {
-  }
-
-  @Override
   public void teardown()
   {
     try {
       store.disconnect();
     }
     catch (IOException ex) {
+      // ignore
     }
   }
-
-  /**
-   * Processes the incoming tuple, presumably store the data in the tuple to the store
-   *
-   * @param tuple
-   */
-  public abstract void processTuple(T tuple);
-
 }
