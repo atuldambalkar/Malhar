@@ -53,7 +53,6 @@ public class DeseasonalizerOperator extends BaseOperator {
     private final class SsubTIsubTValue {
         double stItSum;
         int timeIntervalsCount;
-//        double stItAverage;
     }
 
     public transient DefaultOutputPort<TimeSeriesData> deseasonalizedTimeSeriesPort =
