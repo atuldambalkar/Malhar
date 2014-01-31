@@ -17,7 +17,9 @@ import java.util.List;
  * emit the updated tuple with corresponding CMA value.
  *
  * Important Note: The application window for this Operator needs to cover exact number of data inputs
- * that complete 'n' number of complete time-series cycles.
+ * that complete any arbitrary 'n' number of complete time-series cycles.
+ *
+ * TODO: Explore if this can be turned into SlidingWindow operator
  */
 public class CMASmoothingOperator extends BaseOperator {
 
