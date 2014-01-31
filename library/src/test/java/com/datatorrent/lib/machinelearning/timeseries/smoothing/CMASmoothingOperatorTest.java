@@ -1,6 +1,7 @@
 package com.datatorrent.lib.machinelearning.timeseries.smoothing;
 
 import com.datatorrent.lib.machinelearning.timeseries.TimeSeriesData;
+import com.datatorrent.lib.machinelearning.timeseries.smoothing.centeredmovingaverage.CMASmoothingOperator;
 import com.datatorrent.lib.testbench.CollectorTestSink;
 import org.junit.Test;
 
