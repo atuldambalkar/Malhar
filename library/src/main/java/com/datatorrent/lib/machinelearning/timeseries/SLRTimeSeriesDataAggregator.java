@@ -51,12 +51,14 @@ public class SLRTimeSeriesDataAggregator extends BaseOperator {
         this.timeIntervalsInCycle = timeIntervalsInCycle;
     }
 
-    public transient DefaultOutputPort<SLRTimeSeries> preSlopePort = new DefaultOutputPort<SLRTimeSeries>() {
-        @Override
-        public Unifier<SLRTimeSeries> getUnifier() {
-            return new SLRTimeSeriesUnifier();
-        }
-    };
+    public transient DefaultOutputPort<SLRTimeSeries.Model> modelOutputPort = new DefaultOutputPort<SLRTimeSeries.Model>();
+
+//    public transient DefaultOutputPort<SLRTimeSeries> modelOutputPort = new DefaultOutputPort<SLRTimeSeries>() {
+//        @Override
+//        public Unifier<SLRTimeSeries> getUnifier() {
+//            return new SLRTimeSeriesUnifier();
+//        }
+//    };
 
     public transient DefaultInputPort<TimeSeriesData> inputDataPort = new DefaultInputPort<TimeSeriesData>() {
         @Override
@@ -76,7 +78,8 @@ public class SLRTimeSeriesDataAggregator extends BaseOperator {
      */
     @Override
     public void endWindow() {
-        preSlopePort.emit(slrTimeSeries);
+//        modelOutputPort.emit(slrTimeSeries);
+        modelOutputPort.emit(slrTimeSeries.getModel());
     }
 
 }

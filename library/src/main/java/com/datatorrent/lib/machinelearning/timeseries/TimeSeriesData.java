@@ -46,4 +46,19 @@ public class TimeSeriesData {
      */
     public double cma;
 
+    /**
+     * Is CMA calculated for this tuple?
+     */
+    public boolean cmaCalculatedFlag;
+
+    /**
+     * SsubT * IsubT value
+     */
+    public double stIt;
+
+    /**
+     * Value of y, deseasonalized.
+     */
+    public double deseasonalizedY;
+
 }

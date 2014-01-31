@@ -15,7 +15,8 @@ public class SLRTimeSeriesUnifier implements Operator.Unifier<SLRTimeSeries> {
      */
     private SLRTimeSeries aggregate = new SLRTimeSeries();
 
-    public transient DefaultOutputPort<SLRTimeSeries> modelOutputPort = new DefaultOutputPort<SLRTimeSeries>();
+    public transient DefaultOutputPort<SLRTimeSeries> modelOutputPort =
+            new DefaultOutputPort<SLRTimeSeries>();
 
     @Override
     public void setup(Context.OperatorContext operatorContext) {

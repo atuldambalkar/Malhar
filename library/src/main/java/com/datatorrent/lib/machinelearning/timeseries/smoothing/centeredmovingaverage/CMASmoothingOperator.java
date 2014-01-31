@@ -1,6 +1,7 @@
-package com.datatorrent.lib.machinelearning.timeseries.smoothing;
+package com.datatorrent.lib.machinelearning.timeseries.smoothing.centeredmovingaverage;
 
 import com.datatorrent.api.BaseOperator;
+import com.datatorrent.api.Context;
 import com.datatorrent.api.DefaultInputPort;
 import com.datatorrent.api.DefaultOutputPort;
 import com.datatorrent.lib.machinelearning.timeseries.TimeSeriesData;
@@ -42,8 +43,23 @@ public class CMASmoothingOperator extends BaseOperator {
 
     public transient DefaultOutputPort<TimeSeriesData> cmaOutputPort = new DefaultOutputPort<TimeSeriesData>();
 
-    public CMASmoothingOperator(int numberOfTimeIntervalsInCycle) {
+    public CMASmoothingOperator() {
+    }
+
+//    public CMASmoothingOperator(int numberOfTimeIntervalsInCycle) {
+//        this.numberOfTimeIntervalsInCycle = numberOfTimeIntervalsInCycle;
+//        this.circularYBuffer = new CircularFifoBuffer(numberOfTimeIntervalsInCycle);
+//        this.emitListIndex = numberOfTimeIntervalsInCycle / 2;
+//        this.evenIntervalsInCycle = numberOfTimeIntervalsInCycle % 2 == 0;
+//    }
+
+
+    public void setNumberOfTimeIntervalsInCycle(int numberOfTimeIntervalsInCycle) {
         this.numberOfTimeIntervalsInCycle = numberOfTimeIntervalsInCycle;
+    }
+
+    @Override
+    public void setup(Context.OperatorContext context) {
         this.circularYBuffer = new CircularFifoBuffer(numberOfTimeIntervalsInCycle);
         this.emitListIndex = numberOfTimeIntervalsInCycle / 2;
         this.evenIntervalsInCycle = numberOfTimeIntervalsInCycle % 2 == 0;
@@ -90,7 +106,9 @@ public class CMASmoothingOperator extends BaseOperator {
             this.lastMA = ma;
             ma = avgMA;
         }
-        tupleList.get(emitListIndex).cma = ma;
+        TimeSeriesData tuple = tupleList.get(emitListIndex);
+        tuple.cma = ma;
+        tuple.cmaCalculatedFlag = true;
         emitListIndex++;
     }
 

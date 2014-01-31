@@ -98,7 +98,7 @@ public class SLRTimeSeries {
     /**
      * Array to hold seasonal and irregularity adjustment values for each time interval in a cycle.
      */
-    private double[] sIAdjustments;
+    private double[] stItAdjustments;
 
     /**
      * Are Seasonal and Irregularity Error adjustments computed?
@@ -115,7 +115,19 @@ public class SLRTimeSeries {
      */
     public SLRTimeSeries(int timeIntervalsInCycle) {
         this.timeIntervalsInCycle = timeIntervalsInCycle;
-        this.sIAdjustments = new double[timeIntervalsInCycle];
+        this.stItAdjustments = new double[timeIntervalsInCycle];
+    }
+
+    public void setTimeIntervalsInCycle(int timeIntervalsInCycle) {
+        this.timeIntervalsInCycle = timeIntervalsInCycle;
+    }
+
+    /**
+     * Class to capture model for SLR.
+     */
+    public final static class Model {
+        public double intercept;
+        public double slope;
     }
 
     /**
@@ -129,7 +141,7 @@ public class SLRTimeSeries {
         this.count = 0;
         this.slope = 0;
         this.intercept = 0;
-        this.sIAdjustments = new double[timeIntervalsInCycle];
+        this.stItAdjustments = new double[timeIntervalsInCycle];
     }
 
     public void append(SLRTimeSeries data) {
@@ -167,7 +179,7 @@ public class SLRTimeSeries {
 
      * @return calculated slope value
      */
-    private double getSlope() {
+    private double calculateSlope() {
         return  ((count * sumTY) - (sumT * sumY))
                         / ((count * sumTT) - (sumT * sumT));
     }
@@ -213,7 +225,7 @@ public class SLRTimeSeries {
      */
     public void computeTrendEquation() {
         // calculate slope value
-        this.slope = getSlope();
+        this.slope = calculateSlope();
 
         // calculate ybar and tbar
         double ybar = getYBar();
@@ -221,6 +233,29 @@ public class SLRTimeSeries {
 
         // b0 = y bar - (b1 * t bar)
         this.intercept = ybar - (slope * tbar);
+    }
+
+    public double getIntercept() {
+        return this.intercept;
+    }
+
+    public double getSlope() {
+        return slope;
+    }
+
+    /**
+     * Compute the model with latest trend equation and return the computed model.
+     * @return Model
+     */
+    public Model getModel() {
+
+        computeTrendEquation();
+
+        Model model = new Model();
+        model.intercept = this.intercept;
+        model.slope = this.slope;
+
+        return model;
     }
 
     /**
@@ -236,7 +271,7 @@ public class SLRTimeSeries {
 
         }
 
-        return (this.intercept + (this.slope * timeInterval)) * sIAdjustments[timeInterval / timeIntervalsInCycle];
+        return (this.intercept + (this.slope * timeInterval)) * stItAdjustments[timeInterval / timeIntervalsInCycle];
     }
 
 }
