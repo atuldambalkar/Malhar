@@ -58,13 +58,6 @@ public class MemoryOptimizedCMASmoothingOperator extends BaseOperator {
     public MemoryOptimizedCMASmoothingOperator() {
     }
 
-//    public MemoryOptimizedCMASmoothingOperator(int numberOfTimeIntervalsInCycle) {
-//        this.numberOfTimeIntervalsInCycle = numberOfTimeIntervalsInCycle;
-//        this.circularYBuffer = new CircularFifoBuffer(numberOfTimeIntervalsInCycle);
-//        this.circularTupleBuffer = new CircularFifoBuffer(numberOfTimeIntervalsInCycle);
-//        this.evenIntervalsInCycle = numberOfTimeIntervalsInCycle % 2 == 0;
-//    }
-
     public void setNumberOfTimeIntervalsInCycle(int numberOfTimeIntervalsInCycle) {
         this.numberOfTimeIntervalsInCycle = numberOfTimeIntervalsInCycle;
     }

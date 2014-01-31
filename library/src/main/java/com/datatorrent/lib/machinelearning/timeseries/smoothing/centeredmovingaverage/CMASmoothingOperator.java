@@ -61,14 +61,6 @@ public class CMASmoothingOperator extends BaseOperator {
     public CMASmoothingOperator() {
     }
 
-//    public CMASmoothingOperator(int numberOfTimeIntervalsInCycle) {
-//        this.numberOfTimeIntervalsInCycle = numberOfTimeIntervalsInCycle;
-//        this.circularYBuffer = new CircularFifoBuffer(numberOfTimeIntervalsInCycle);
-//        this.emitListIndex = numberOfTimeIntervalsInCycle / 2;
-//        this.evenIntervalsInCycle = numberOfTimeIntervalsInCycle % 2 == 0;
-//    }
-
-
     public void setNumberOfTimeIntervalsInCycle(int numberOfTimeIntervalsInCycle) {
         this.numberOfTimeIntervalsInCycle = numberOfTimeIntervalsInCycle;
     }
