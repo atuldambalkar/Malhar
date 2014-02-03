@@ -26,7 +26,7 @@ import java.util.List;
 /**
  * Forecaster operator to forecast value for given time period.
  */
-public class SLRTimeSeriesForecasterOperator extends BaseOperator {
+public class SLRTimeSeriesForecastingOperator extends BaseOperator {
 
     @NotNull
     private int numberOfTimeIntervalsInCycle;

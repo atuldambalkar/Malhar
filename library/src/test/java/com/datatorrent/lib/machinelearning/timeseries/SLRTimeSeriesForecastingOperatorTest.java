@@ -26,11 +26,11 @@ import java.util.List;
 /**
  * Test class for SLRTimeSeries Forecaster operator.
  */
-public class SLRTimeSeriesForecasterOperatorTest {
+public class SLRTimeSeriesForecastingOperatorTest {
 
     @Test
     public void test() {
-        SLRTimeSeriesForecasterOperator oper = new SLRTimeSeriesForecasterOperator();
+        SLRTimeSeriesForecastingOperator oper = new SLRTimeSeriesForecastingOperator();
         oper.setNumberOfTimeIntervalsInCycle(5);
         CollectorTestSink sink = new CollectorTestSink();
 
