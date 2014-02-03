@@ -13,9 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-package com.datatorrent.lib.machinelearning.timeseries;
+package com.datatorrent.lib.machinelearning.timeseries.linearregression;
 
 import com.datatorrent.api.*;
+import com.datatorrent.lib.machinelearning.timeseries.TimeSeriesData;
 import com.datatorrent.lib.machinelearning.timeseries.linearregression.SLRTimeSeries;
 
 import javax.validation.constraints.NotNull;

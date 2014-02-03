@@ -16,6 +16,7 @@
 package com.datatorrent.lib.machinelearning.timeseries;
 
 import com.datatorrent.lib.machinelearning.timeseries.linearregression.SLRTimeSeries;
+import com.datatorrent.lib.machinelearning.timeseries.linearregression.SLRTimeSeriesForecastingOperator;
 import com.datatorrent.lib.testbench.CollectorTestSink;
 import junit.framework.Assert;
 import org.junit.Test;
