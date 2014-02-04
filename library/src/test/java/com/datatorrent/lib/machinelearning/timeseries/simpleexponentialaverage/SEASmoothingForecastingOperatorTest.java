@@ -5,6 +5,7 @@ import com.datatorrent.lib.testbench.CollectorTestSink;
 import junit.framework.Assert;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -39,15 +40,16 @@ public class SEASmoothingForecastingOperatorTest {
                 {29, 3, 4},
                 {28, 4, 4},
         };
+        List<TimeSeriesData> tupleList = new ArrayList<TimeSeriesData>();
+
         for (double[] elem: data) {
             TimeSeriesData tuple = new TimeSeriesData();
             tuple.y = elem[0];
             tuple.currentTimeInterval = (int)elem[1];
             tuple.currentTimeCycle = (int)elem[2];
-            oper.timeSeriesDataPort.process(tuple);
+            tupleList.add(tuple);
         }
-
-        oper.endWindow();
+        oper.timeSeriesDataPort.process(tupleList);
 
         List tuples = sink.collectedTuples;
         Assert.assertEquals(29.1232, (Double)tuples.get(0), 0.000094);

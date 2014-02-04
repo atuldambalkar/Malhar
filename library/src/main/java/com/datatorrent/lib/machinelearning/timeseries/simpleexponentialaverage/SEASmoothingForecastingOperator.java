@@ -27,7 +27,7 @@ import java.util.List;
  * As seen by above equation, this forecasting method expects training data or demand data to be available till
  * last time period (T) for predicting the value for T+1 time period.
  *
- * This operator forecasts the value for the next time period in endWindow API.
+ * This operator forecasts the value for the next time period in the process API as soon as it gets the list of time series data.
  */
 @OperatorAnnotation (partitionable = false)
 public class SEASmoothingForecastingOperator extends BaseOperator {
@@ -50,24 +50,16 @@ public class SEASmoothingForecastingOperator extends BaseOperator {
 
     public transient DefaultOutputPort<Double> forecastingPort = new DefaultOutputPort<Double>();
 
-    public transient DefaultInputPort<TimeSeriesData> timeSeriesDataPort = new DefaultInputPort<TimeSeriesData>() {
+    /**
+     * Process the given list of time series data objects and forecast the value for next time period.
+     */
+    public transient DefaultInputPort<List<TimeSeriesData>> timeSeriesDataPort = new DefaultInputPort<List<TimeSeriesData>>() {
         @Override
-        public void process(TimeSeriesData tuple) {
-            tupleList.add(tuple);
+        public void process(List<TimeSeriesData> tupleList) {
+            SEASmoothingForecaster seaSmoothingForecaster = new SEASmoothingForecaster();
+            seaSmoothingForecaster.setAlpha(alpha);
+            seaSmoothingForecaster.setTimeSeriesDataList(tupleList);
+            forecastingPort.emit(seaSmoothingForecaster.computeForecast(true));
         }
     };
-
-    /**
-     *
-     */
-    @Override
-    public void endWindow() {
-        SEASmoothingForecaster seaSmoothingForecaster = new SEASmoothingForecaster();
-        seaSmoothingForecaster.setAlpha(this.alpha);
-        seaSmoothingForecaster.setTimeSeriesDataList(tupleList);
-        forecastingPort.emit(seaSmoothingForecaster.computeForecast(true));
-//        forecastingPort.emit(seaSmoothingForecaster.computeForecast(false));
-        tupleList.clear();
-    }
-
 }
