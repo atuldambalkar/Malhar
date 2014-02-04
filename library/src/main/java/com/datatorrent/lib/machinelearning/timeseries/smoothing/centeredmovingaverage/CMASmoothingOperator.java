@@ -124,5 +124,6 @@ public class CMASmoothingOperator extends BaseOperator {
         for (TimeSeriesData tuple: tupleList) {
             cmaOutputPort.emit(tuple);
         }
+        tupleList.clear();
     }
 }

@@ -130,6 +130,7 @@ public class MemoryOptimizedCMASmoothingOperator extends BaseOperator {
         for (Object tuple: circularTupleBuffer) {
             cmaOutputPort.emit((TimeSeriesData)tuple);
         }
+        circularTupleBuffer.clear();
     }
 
 

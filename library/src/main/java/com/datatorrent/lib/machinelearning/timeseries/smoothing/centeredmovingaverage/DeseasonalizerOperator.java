@@ -26,13 +26,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Operator to deseasonalize the CMA based data tuples within the given application window as received from upstream CMASmoothingOperator.
+ * Operator to de-seasonalize the CMA based data tuples within the given application window as received from upstream CMASmoothingOperator. This operator
+ * maintains the updated avaerage values for SsubT * IsubT across application windows.
  *
  * Following are steps -
  *
  * 1. Calculate the SsubT and IsubT values for each tuple as,
  *   SsubT * IsubT = YsubT / CMAsubT
- * 2. Get rid of IsubT error component by calcualte teh average value for each time interval for SsubT * IsubT .
+ * 2. Get rid of IsubT error component by calculate the average value for each time interval for SsubT * IsubT .
  *    This is done for all the tuples received in the application window, hence calculated in endWindow.
  * 3. Calculate the deseasonalized value (in endWindow) by using SsubT as,
  *   Deseasonalized YsubT = YsubT / SsubT
@@ -126,5 +127,6 @@ public class DeseasonalizerOperator extends BaseOperator {
             deseasonalizedTimeSeriesPort.emit(tuple);
         }
         stItPort.emit(stItList);
+        tuples.clear();
     }
 }
