@@ -3,6 +3,7 @@ package com.datatorrent.lib.machinelearning.timeseries.simpleexponentialaverage;
 import com.datatorrent.api.BaseOperator;
 import com.datatorrent.api.DefaultInputPort;
 import com.datatorrent.api.DefaultOutputPort;
+import com.datatorrent.api.annotation.OperatorAnnotation;
 import com.datatorrent.lib.machinelearning.timeseries.TimeSeriesData;
 
 import javax.validation.constraints.Max;
@@ -25,7 +26,10 @@ import java.util.List;
  *
  * As seen by above equation, this forecasting method expects training data or demand data to be available till
  * last time period (T) for predicting the value for T+1 time period.
+ *
+ * This operator forecasts the value for the next time period in endWindow API.
  */
+@OperatorAnnotation (partitionable = false)
 public class SEASmoothingForecastingOperator extends BaseOperator {
 
     private List<TimeSeriesData> tupleList = new ArrayList<TimeSeriesData>();
@@ -58,27 +62,12 @@ public class SEASmoothingForecastingOperator extends BaseOperator {
      */
     @Override
     public void endWindow() {
-        forecastingPort.emit(recursivelyComputeForecast(tupleList.size()));
-//        forecastingPort.emit(iterativelyComputeForecast(tupleList.size()));
+        SEASmoothingForecaster seaSmoothingForecaster = new SEASmoothingForecaster();
+        seaSmoothingForecaster.setAlpha(this.alpha);
+        seaSmoothingForecaster.setTimeSeriesDataList(tupleList);
+        forecastingPort.emit(seaSmoothingForecaster.computeForecast(true));
+//        forecastingPort.emit(seaSmoothingForecaster.computeForecast(false));
+        tupleList.clear();
     }
 
-    private double recursivelyComputeForecast(int tplusOne) {
-        if (tplusOne == 0) {
-            return 0;
-        }
-        int t = tplusOne - 1;
-        return (alpha * tupleList.get(t).y) + ((1 - alpha) * recursivelyComputeForecast(t));
-    }
-
-    private double iterativelyComputeForecast(int period) {
-        double forecast = 0;
-        for (int i = 0; i < period; i++) {
-            forecast = computeLastForecast(i, forecast);
-        }
-        return forecast;
-    }
-
-    private double computeLastForecast(int period, double lastForecast) {
-        return (alpha * tupleList.get(period).y) + ((1 - alpha) * lastForecast);
-    }
 }
