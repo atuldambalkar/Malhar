@@ -40,8 +40,8 @@ import java.util.List;
  *
  * Reference links -
  * <ul>
- *   <li>http://www.youtube.com/watch?v=k9dhcfIyOFc</li>
- *   <li>Lecture Series from Prof. G. Srinivasn, IIT Madras, Forecasting -- Time series models -- Simple Exponential smoothing</li>
+ *   <li>http://www.youtube.com/watch?v=gHdYEZA50KE</li>
+ *   <li>Lecture Series from Jaylar Academy</li>
  * </ul>
  *
  */

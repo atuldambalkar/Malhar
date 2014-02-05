@@ -18,6 +18,7 @@ import java.util.List;
  *
  * As seen by above equation, this forecasting method expects training data or demand data to be available till
  * last time period (T) for predicting the value for T+1 time period.
+ *
  * Reference links -
  * <ul>
  *   <li>http://www.youtube.com/watch?v=k9dhcfIyOFc</li>

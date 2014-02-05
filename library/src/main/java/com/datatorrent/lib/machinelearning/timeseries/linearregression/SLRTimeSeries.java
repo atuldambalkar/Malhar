@@ -56,8 +56,8 @@ import com.datatorrent.lib.machinelearning.timeseries.TimeSeriesData;
  * <ul>
  *   <li>http://highered.mcgraw-hill.com/sites/dl/free/0070951640/354829/lind51640_ch16.pdf</li>
  *   <li>Basic Statistics for Business and Economics 3rd Canadian Edition Lind, Marchal, Wathen, and Waite</li>
- *   <li>http://www.youtube.com/watch?v=k9dhcfIyOFc</li>
- *   <li>Lecture Series from Prof. G. Srinivasn, IIT Madras, Forecasting -- Time series models -- Simple Exponential smoothing</li>
+ *   <li>http://www.youtube.com/watch?v=gHdYEZA50KE</li>
+ *   <li>Lecture Series from Jaylar Academy</li>
  * </ul>
  */
 public class SLRTimeSeries {
