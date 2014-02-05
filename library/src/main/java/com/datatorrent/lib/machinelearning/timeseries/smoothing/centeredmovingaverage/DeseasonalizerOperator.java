@@ -38,6 +38,12 @@ import java.util.List;
  * 3. Calculate the deseasonalized value (in endWindow) by using SsubT as,
  *   Deseasonalized YsubT = YsubT / SsubT
  *
+ * Reference links -
+ * <ul>
+ *   <li>http://www.youtube.com/watch?v=k9dhcfIyOFc</li>
+ *   <li>Lecture Series from Prof. G. Srinivasn, IIT Madras, Forecasting -- Time series models -- Simple Exponential smoothing</li>
+ * </ul>
+ *
  */
 public class DeseasonalizerOperator extends BaseOperator {
 

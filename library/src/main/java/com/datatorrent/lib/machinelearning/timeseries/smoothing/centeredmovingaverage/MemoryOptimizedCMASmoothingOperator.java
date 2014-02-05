@@ -33,6 +33,12 @@ import javax.validation.constraints.NotNull;
  * Important Note: The application window for this Operator needs to cover exact number of data inputs
  * that complete any arbitrary 'n' number of complete time-series cycles.
  *
+ * Reference links -
+ * <ul>
+ *   <li>http://www.youtube.com/watch?v=k9dhcfIyOFc</li>
+ *   <li>Lecture Series from Prof. G. Srinivasn, IIT Madras, Forecasting -- Time series models -- Simple Exponential smoothing</li>
+ * </ul>
+ *
  * TODO: Explore if this can be turned into SlidingWindow operator
  */
 public class MemoryOptimizedCMASmoothingOperator extends BaseOperator {
