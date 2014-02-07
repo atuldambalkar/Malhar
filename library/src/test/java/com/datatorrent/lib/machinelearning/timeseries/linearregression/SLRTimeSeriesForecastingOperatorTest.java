@@ -47,7 +47,7 @@ public class SLRTimeSeriesForecastingOperatorTest {
         model.intercept = 5.418;
         model.slope = 0.119;
 
-        oper.stItPort.process(stItList);
+        oper.stItInputPort.process(stItList);
         oper.slrTimeSeriesModelPort.process(model);
 
         oper.forecastInputPort.process(21);

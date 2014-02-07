@@ -85,7 +85,7 @@ public class DeseasonalizerOperator extends BaseOperator {
     /**
      * Calculate SsubT * IsubT component for each tuple.
      */
-    public transient DefaultInputPort<TimeSeriesData> cmaTimeSeriesPort = new DefaultInputPort<TimeSeriesData>() {
+    public transient DefaultInputPort<TimeSeriesData> cmaSmoothenedTimeSeriesPort = new DefaultInputPort<TimeSeriesData>() {
         @Override
         public void process(TimeSeriesData tuple) {
             if (tuple.cmaCalculatedFlag) {

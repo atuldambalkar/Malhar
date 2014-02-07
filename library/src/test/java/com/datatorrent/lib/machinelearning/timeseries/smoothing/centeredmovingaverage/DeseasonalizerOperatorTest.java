@@ -63,7 +63,7 @@ public class DeseasonalizerOperatorTest {
             tuple.currentTimeCycle = (int)elem[2];
             tuple.cma = elem[3];
             tuple.cmaCalculatedFlag = elem[3] > 0;
-            oper.cmaTimeSeriesPort.process(tuple);
+            oper.cmaSmoothenedTimeSeriesPort.process(tuple);
         }
         oper.endWindow();
 
@@ -112,7 +112,7 @@ public class DeseasonalizerOperatorTest {
             tuple.currentTimeCycle = (int)elem[2];
             tuple.cma = elem[3];
             tuple.cmaCalculatedFlag = elem[3] > 0;
-            oper.cmaTimeSeriesPort.process(tuple);
+            oper.cmaSmoothenedTimeSeriesPort.process(tuple);
         }
         oper.endWindow();
 

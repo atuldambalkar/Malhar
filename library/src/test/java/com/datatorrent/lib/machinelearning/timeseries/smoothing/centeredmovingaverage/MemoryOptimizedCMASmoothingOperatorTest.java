@@ -50,10 +50,6 @@ public class MemoryOptimizedCMASmoothingOperatorTest {
                 {5.6, 2, 3},
                 {7.5, 3, 3},
                 {7.8, 4, 3},
-                {6.3, 1, 4},
-                {5.9, 2, 4},
-                {8.0, 3, 4},
-                {8.4, 4, 4},
         };
         for (double[] elem: data) {
             TimeSeriesData tuple = new TimeSeriesData();
@@ -63,11 +59,29 @@ public class MemoryOptimizedCMASmoothingOperatorTest {
             oper.timeSeriesDataPort.process(tuple);
         }
 
-        oper.endWindow();
+//        oper.endWindow();
 
         List tuples = sink.collectedTuples;
-        Assert.assertEquals(5.4, ((TimeSeriesData) tuples.get(2)).cma, 0.075);
-        Assert.assertEquals(5.7, ((TimeSeriesData)tuples.get(3)).cma, 0.037499999999999);
+        Assert.assertEquals(5.4, ((TimeSeriesData) tuples.get(0)).cma, 0.075);
+        Assert.assertEquals(5.7, ((TimeSeriesData)tuples.get(1)).cma, 0.037499999999999);
+
+        double[][] data1 = {
+                {6.3, 1, 4},
+                {5.9, 2, 4},
+                {8.0, 3, 4},
+                {8.4, 4, 4},
+        };
+        for (double[] elem: data1) {
+            TimeSeriesData tuple = new TimeSeriesData();
+            tuple.y = elem[0];
+            tuple.currentTimeInterval = (int)elem[1];
+            tuple.currentTimeCycle = (int)elem[2];
+            oper.timeSeriesDataPort.process(tuple);
+        }
+
+        tuples = sink.collectedTuples;
+        Assert.assertEquals(6.937, ((TimeSeriesData) tuples.get(10)).cma, 0.000499999999998);
+        Assert.assertEquals(7.074999999999998, ((TimeSeriesData)tuples.get(11)).cma, 0.000999999999998);
 
     }
 

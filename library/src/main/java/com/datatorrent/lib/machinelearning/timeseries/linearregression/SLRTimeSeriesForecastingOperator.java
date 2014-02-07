@@ -40,7 +40,7 @@ public class SLRTimeSeriesForecastingOperator extends BaseOperator {
 
     public transient DefaultOutputPort<Double> forecastOutputPort = new DefaultOutputPort<Double>();
 
-    public transient DefaultInputPort<List<Double>> stItPort = new DefaultInputPort<List<Double>>() {
+    public transient DefaultInputPort<List<Double>> stItInputPort = new DefaultInputPort<List<Double>>() {
         @Override
         public void process(List<Double> tuple) {
             stItList = tuple;

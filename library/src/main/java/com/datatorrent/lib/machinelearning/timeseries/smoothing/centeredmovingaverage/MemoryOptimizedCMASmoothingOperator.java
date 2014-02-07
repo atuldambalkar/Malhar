@@ -106,13 +106,6 @@ public class MemoryOptimizedCMASmoothingOperator extends BaseOperator {
      * @param ma
      */
     private void processTupleBuffer(double ma) {
-        if (firstCycle) {
-            int removalCount = numberOfTimeIntervalsInCycle / 2;
-            while (removalCount > 0) {
-                cmaOutputPort.emit((TimeSeriesData) circularTupleBuffer.remove());
-                removalCount--;
-            }
-        }
         if (evenIntervalsInCycle) {
             if (!calculateAverage) {
                 calculateAverage = true;
@@ -125,6 +118,7 @@ public class MemoryOptimizedCMASmoothingOperator extends BaseOperator {
         }
         TimeSeriesData data = (TimeSeriesData) circularTupleBuffer.remove();
         data.cma = ma;
+        data.cmaCalculatedFlag = true;
         cmaOutputPort.emit(data);
     }
 
@@ -133,10 +127,6 @@ public class MemoryOptimizedCMASmoothingOperator extends BaseOperator {
      */
     @Override
     public void endWindow() {
-        for (Object tuple: circularTupleBuffer) {
-            cmaOutputPort.emit((TimeSeriesData)tuple);
-        }
-        circularTupleBuffer.clear();
     }
 
 

@@ -33,7 +33,8 @@ import java.util.List;
  * emit the updated tuple with corresponding CMA value.
  *
  * Important Note: The application window for this Operator needs to cover exact number of data inputs
- * that complete any arbitrary 'n' number of complete time-series cycles.
+ * that complete any arbitrary 'n' number of complete time-series cycles. This operator suffers a problem of having to
+ * restart the CMA calculation after each end-window.
  *
  * Reference links -
  * <ul>
@@ -42,6 +43,7 @@ import java.util.List;
  * </ul>
  *
  * TODO: Explore if this can be turned into SlidingWindow operator
+ * @deprecated Will be replaced by memory optimized version.
  */
 public class CMASmoothingOperator extends BaseOperator {
 
@@ -131,5 +133,6 @@ public class CMASmoothingOperator extends BaseOperator {
             cmaOutputPort.emit(tuple);
         }
         tupleList.clear();
+        firstCycle = true;
     }
 }
