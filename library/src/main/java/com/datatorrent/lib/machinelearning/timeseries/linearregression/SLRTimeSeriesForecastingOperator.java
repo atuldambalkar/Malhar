@@ -19,6 +19,8 @@ import com.datatorrent.api.BaseOperator;
 import com.datatorrent.api.DefaultInputPort;
 import com.datatorrent.api.DefaultOutputPort;
 import com.datatorrent.lib.machinelearning.timeseries.linearregression.SLRTimeSeries;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.constraints.NotNull;
 import java.util.List;
@@ -33,9 +35,17 @@ public class SLRTimeSeriesForecastingOperator extends BaseOperator {
 
     private List<Double> stItList;
     private SLRTimeSeries.Model slrTimeSeriesModel;
+    private long windowId;
+
+    private static final Logger logger = LoggerFactory.getLogger(SLRTimeSeriesForecastingOperator.class);
 
     public void setNumberOfTimeIntervalsInCycle(int numberOfTimeIntervalsInCycle) {
         this.numberOfTimeIntervalsInCycle = numberOfTimeIntervalsInCycle;
+    }
+
+    @Override
+    public void beginWindow(long windowId) {
+        this.windowId = windowId;
     }
 
     public transient DefaultOutputPort<Double> forecastOutputPort = new DefaultOutputPort<Double>();
@@ -58,12 +68,15 @@ public class SLRTimeSeriesForecastingOperator extends BaseOperator {
         @Override
         public void process(Integer timeValue) {
             if (stItList == null || slrTimeSeriesModel == null) {
-                throw new IllegalStateException("Model is not ready yet!");
+                logger.info("WindowId: " + windowId + ", Model is not ready yet!");
+                return;
             }
+
             int timeIntervalInCycle = timeValue % numberOfTimeIntervalsInCycle;
             if (timeIntervalInCycle == 0) {
                 timeIntervalInCycle = numberOfTimeIntervalsInCycle;
             }
+            logger.debug("WindowId: " + windowId + ", Query: " + timeValue + " Interept:" + slrTimeSeriesModel.slope + " Slope:" + slrTimeSeriesModel.intercept);
             // (intercept + slope * timeValue) * stItForTimePeriod
             forecastOutputPort.emit((slrTimeSeriesModel.intercept + slrTimeSeriesModel.slope * timeValue) * stItList.get(timeIntervalInCycle - 1));
         }

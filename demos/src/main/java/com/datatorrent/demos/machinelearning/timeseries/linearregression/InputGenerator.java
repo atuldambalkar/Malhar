@@ -109,22 +109,26 @@ public class InputGenerator implements InputOperator {
      */
     @Override
     public void emitTuples() {
-//        if (!trainingDataGenerated) {
-            int timeInterval = 1;
-            for (int[] hourlyCallRateRange: hourlyCallRateRanges) {
-                TimeSeriesData tuple = new TimeSeriesData();
-                tuple.y = nextRandomId(hourlyCallRateRange[0], hourlyCallRateRange[1]);
-                tuple.currentTimeInterval = timeInterval;
-                tuple.currentTimeCycle = currentTimeCycle;
-                timeInterval++;
-                timeSeriesDataOutputPort.emit(tuple);
+        if (!trainingDataGenerated) {
+            int count = 0;
+            while (count < 5) {
+                int timeInterval = 1;
+                for (int[] hourlyCallRateRange: hourlyCallRateRanges) {
+                    TimeSeriesData tuple = new TimeSeriesData();
+                    tuple.y = nextRandomId(hourlyCallRateRange[0], hourlyCallRateRange[1]);
+                    tuple.currentTimeInterval = timeInterval;
+                    tuple.currentTimeCycle = currentTimeCycle;
+                    timeInterval++;
+                    timeSeriesDataOutputPort.emit(tuple);
+                }
+                currentTimeCycle++;
+                if (currentTimeCycle % 5 == 0) {  // sufficient data is now generated. So generate the query input
+                    queryOutputPort.emit((currentTimeCycle * 24) + nextRandomId(1, 24));
+                }
+                count++;
             }
-            currentTimeCycle++;
-            if (currentTimeCycle >= 5) {  // sufficient data is now generated. So generate the query input
-                queryOutputPort.emit((currentTimeCycle * 24) + nextRandomId(1, 24));
-            }
-//        }
-//        trainingDataGenerated = true;
+        }
+        trainingDataGenerated = true;
     }
 
 }

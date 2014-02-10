@@ -20,6 +20,8 @@ import com.datatorrent.api.Context;
 import com.datatorrent.api.DefaultInputPort;
 import com.datatorrent.api.DefaultOutputPort;
 import com.datatorrent.lib.machinelearning.timeseries.TimeSeriesData;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -55,6 +57,9 @@ public class DeseasonalizerOperator extends BaseOperator {
 
     private SsubTIsubTValue[] stItValues;
     private List<TimeSeriesData> tuples = new ArrayList<TimeSeriesData>();
+    private long windowId;
+
+    private static final Logger logger = LoggerFactory.getLogger(DeseasonalizerOperator.class);
 
     public DeseasonalizerOperator() {
     }
@@ -65,6 +70,11 @@ public class DeseasonalizerOperator extends BaseOperator {
 
     public void setNumberOfTimeIntervalsInCycle(int numberOfTimeIntervalsInCycle) {
         this.numberOfTimeIntervalsInCycle = numberOfTimeIntervalsInCycle;
+    }
+
+    @Override
+    public void beginWindow(long windowId) {
+        this.windowId = windowId;
     }
 
     @Override
@@ -99,8 +109,8 @@ public class DeseasonalizerOperator extends BaseOperator {
     public void endWindow() {
         // go through the stItList and calculate the averages for each time interval
         if (tuples.size() % numberOfTimeIntervalsInCycle != 0) {
-            throw new IllegalStateException("Incorrect number of records (" + tuples.size() + ") received. " +
-                    "Need to match multiple of time intervals (" + numberOfTimeIntervalsInCycle + ") in a time series cycle: ");
+            logger.info("WindowId: " + windowId + ", Model is not ready yet!");
+            return;
         }
         for (TimeSeriesData tuple: tuples) {
             if (!tuple.cmaCalculatedFlag) {
@@ -123,7 +133,8 @@ public class DeseasonalizerOperator extends BaseOperator {
         int index = 0;
         for (SsubTIsubTValue value: stItValues) {
             if (stItValues[index] == null) {
-                throw new IllegalStateException("Insufficient data supplied. Data for not all time intervals is available!");
+                logger.info("WindowId: " + windowId + ", Model is not ready yet!");
+                return;
             }
             stItList.add(value.stItSum / value.timeIntervalsCount);
             index++;
@@ -132,7 +143,26 @@ public class DeseasonalizerOperator extends BaseOperator {
             tuple.deseasonalizedY = tuple.y / stItList.get(tuple.currentTimeInterval - 1);
             deseasonalizedTimeSeriesPort.emit(tuple);
         }
+        printStItList(stItList);
         stItPort.emit(stItList);
         tuples.clear();
+    }
+
+    private void printStItList(List<Double> list) {
+        if (list != null && list.size() > 0) {
+            logger.debug("WindowId: " + windowId + ", StItList: " + getAsString(list));
+        }
+    }
+
+    private String getAsString(List<Double> list) {
+        StringBuffer buffer = new StringBuffer();
+        if (list != null && list.size() > 0) {
+            buffer.append('[');
+            for (Double val: list) {
+                buffer.append(val).append(',');
+            }
+            buffer.append(']');
+        }
+        return buffer.toString();
     }
 }

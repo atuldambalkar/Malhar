@@ -38,31 +38,41 @@ public class Application implements StreamingApplication {
         dag.setAttribute(DAG.APPLICATION_NAME, "TelecomCallRateTimeSeriesApplication");
 
         InputGenerator input = dag.addOperator("input", InputGenerator.class);
-//        dag.setOutputPortAttribute(input.queryOutputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
+        dag.setOutputPortAttribute(input.queryOutputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
 
         MemoryOptimizedCMASmoothingOperator cmaSmoothener = new MemoryOptimizedCMASmoothingOperator();
         cmaSmoothener.setNumberOfTimeIntervalsInCycle(24);
         dag.addOperator("cmaSmoothing", cmaSmoothener);
+        dag.setOutputPortAttribute(cmaSmoothener.cmaOutputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
+        dag.setInputPortAttribute(cmaSmoothener.timeSeriesDataPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
 
         DeseasonalizerOperator deseasonalizer = new DeseasonalizerOperator();
         deseasonalizer.setNumberOfTimeIntervalsInCycle(24);
         dag.addOperator("deseasonalizer", deseasonalizer);
+        dag.setOutputPortAttribute(deseasonalizer.deseasonalizedTimeSeriesPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
+        dag.setOutputPortAttribute(deseasonalizer.stItPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
+        dag.setInputPortAttribute(deseasonalizer.cmaSmoothenedTimeSeriesPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
 
         SLRTimeSeriesDataAggregator slrTimeSeriesAggregator = new SLRTimeSeriesDataAggregator();
         slrTimeSeriesAggregator.setTimeIntervalsInCycle(24);
         dag.addOperator("slrTimeSeries", slrTimeSeriesAggregator);
+        dag.setOutputPortAttribute(slrTimeSeriesAggregator.modelOutputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
+        dag.setInputPortAttribute(slrTimeSeriesAggregator.inputDataPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
 
         SLRTimeSeriesForecastingOperator slrTimeSeriesForecaster = new SLRTimeSeriesForecastingOperator();
         slrTimeSeriesForecaster.setNumberOfTimeIntervalsInCycle(24);
         dag.addOperator("slrTimeSeriesForecaster", slrTimeSeriesForecaster);
+        dag.setOutputPortAttribute(slrTimeSeriesForecaster.forecastOutputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
+        dag.setInputPortAttribute(slrTimeSeriesForecaster.forecastInputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
+        dag.setInputPortAttribute(slrTimeSeriesForecaster.slrTimeSeriesModelPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
 
         ConsoleOutputOperator console = dag.addOperator("forecastingConsole", ConsoleOutputOperator.class);
 
         dag.addStream("timeSeriesData", input.timeSeriesDataOutputPort, cmaSmoothener.timeSeriesDataPort);
         dag.addStream("cmaSmoothenedData", cmaSmoothener.cmaOutputPort, deseasonalizer.cmaSmoothenedTimeSeriesPort);
         dag.addStream("deseasonalizedDaa", deseasonalizer.deseasonalizedTimeSeriesPort, slrTimeSeriesAggregator.inputDataPort);
-        dag.addStream("slrTimeSeriesModel", slrTimeSeriesAggregator.modelOutputPort, slrTimeSeriesForecaster.slrTimeSeriesModelPort);
         dag.addStream("stItData", deseasonalizer.stItPort, slrTimeSeriesForecaster.stItInputPort);
+        dag.addStream("slrTimeSeriesModel", slrTimeSeriesAggregator.modelOutputPort, slrTimeSeriesForecaster.slrTimeSeriesModelPort);
         dag.addStream("queryData", input.queryOutputPort, slrTimeSeriesForecaster.forecastInputPort);
         dag.addStream("forecaster", slrTimeSeriesForecaster.forecastOutputPort, console.input);
     }
