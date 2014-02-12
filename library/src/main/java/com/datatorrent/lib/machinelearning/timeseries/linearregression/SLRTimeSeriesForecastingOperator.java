@@ -76,9 +76,10 @@ public class SLRTimeSeriesForecastingOperator extends BaseOperator {
             if (timeIntervalInCycle == 0) {
                 timeIntervalInCycle = numberOfTimeIntervalsInCycle;
             }
-            logger.debug("WindowId: " + windowId + ", Query: " + timeValue + " Interept:" + slrTimeSeriesModel.slope + " Slope:" + slrTimeSeriesModel.intercept);
+            double forecast = (slrTimeSeriesModel.intercept + slrTimeSeriesModel.slope * timeValue) * stItList.get(timeIntervalInCycle - 1);
+            logger.debug("WindowId: " + windowId + ", Query: " + timeValue + " Interept:" + slrTimeSeriesModel.slope + " Slope:" + slrTimeSeriesModel.intercept + " Forecast: " + forecast);
             // (intercept + slope * timeValue) * stItForTimePeriod
-            forecastOutputPort.emit((slrTimeSeriesModel.intercept + slrTimeSeriesModel.slope * timeValue) * stItList.get(timeIntervalInCycle - 1));
+            forecastOutputPort.emit(forecast);
         }
     };
 }

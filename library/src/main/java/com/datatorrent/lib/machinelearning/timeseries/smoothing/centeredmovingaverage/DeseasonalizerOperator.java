@@ -112,6 +112,7 @@ public class DeseasonalizerOperator extends BaseOperator {
             logger.info("WindowId: " + windowId + ", Model is not ready yet!");
             return;
         }
+        printCMATuples(tuples);
         for (TimeSeriesData tuple: tuples) {
             if (!tuple.cmaCalculatedFlag) {
                 continue;
@@ -165,4 +166,19 @@ public class DeseasonalizerOperator extends BaseOperator {
         }
         return buffer.toString();
     }
+
+    private void printCMATuples(List<TimeSeriesData> tuples) {
+        logger.debug("WindowId: " + windowId + ", CMA Tuples: " + getTupleValues(tuples));
+    }
+
+    private String getTupleValues(List<TimeSeriesData> tuples) {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append('[');
+        for (TimeSeriesData tuple: tuples) {
+            buffer.append(tuple.cma).append(',');
+        }
+        buffer.append(']');
+        return buffer.toString();
+    }
+
 }

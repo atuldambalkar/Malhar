@@ -23,6 +23,8 @@ import com.datatorrent.lib.machinelearning.timeseries.TimeSeriesData;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 /**
@@ -39,6 +41,7 @@ public class InputGenerator implements InputOperator {
     private int timeInterval = 1;
     private int currentTimeCycle = 1;
     private Random random = new Random();
+    private long windowId;
 
     private int[][] hourlyCallRateRanges = {
             {5, 10},   // hour 1 00.00 to 1.00am
@@ -75,6 +78,7 @@ public class InputGenerator implements InputOperator {
 
     @Override
     public void beginWindow(long windowId) {
+        this.windowId = windowId;
     }
 
     @Override
@@ -111,6 +115,8 @@ public class InputGenerator implements InputOperator {
     public void emitTuples() {
         if (!trainingDataGenerated) {
             int count = 0;
+            List<TimeSeriesData> tuples = new ArrayList<TimeSeriesData>();
+            List<Integer> queries = new ArrayList<Integer>();
             while (count < 5) {
                 int timeInterval = 1;
                 for (int[] hourlyCallRateRange: hourlyCallRateRanges) {
@@ -119,16 +125,39 @@ public class InputGenerator implements InputOperator {
                     tuple.currentTimeInterval = timeInterval;
                     tuple.currentTimeCycle = currentTimeCycle;
                     timeInterval++;
-                    timeSeriesDataOutputPort.emit(tuple);
+//                    timeSeriesDataOutputPort.emit(tuple);
+                    tuples.add(tuple);
                 }
                 currentTimeCycle++;
                 if (currentTimeCycle % 5 == 0) {  // sufficient data is now generated. So generate the query input
-                    queryOutputPort.emit((currentTimeCycle * 24) + nextRandomId(1, 24));
+//                    queryOutputPort.emit((currentTimeCycle * 24) + nextRandomId(1, 24));
+                    queries.add(currentTimeCycle * 24 + nextRandomId(1, 24));
                 }
                 count++;
             }
+            printEmittedTuples(tuples);
+            for (TimeSeriesData tuple: tuples) {
+                timeSeriesDataOutputPort.emit(tuple);
+            }
+            for (Integer query: queries) {
+                queryOutputPort.emit(query);
+            }
         }
         trainingDataGenerated = true;
+    }
+
+    private void printEmittedTuples(List<TimeSeriesData> tuples) {
+        logger.debug("WindowId: " + windowId + ", Generated Tuples: " + getTupleValues(tuples));
+    }
+
+    private String getTupleValues(List<TimeSeriesData> tuples) {
+        StringBuffer buffer = new StringBuffer();
+        buffer.append('[');
+        for (TimeSeriesData tuple: tuples) {
+            buffer.append(tuple.y).append(',');
+        }
+        buffer.append(']');
+        return buffer.toString();
     }
 
 }
