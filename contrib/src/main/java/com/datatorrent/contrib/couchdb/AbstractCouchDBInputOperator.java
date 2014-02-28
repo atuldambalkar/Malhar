@@ -47,6 +47,7 @@ import java.util.List;
  *
  * @param <T>Type of tuples which are generated</T>
  * @since 0.3.5
+ * @dt-adapter CouchDB
  */
 @ShipContainingJars(classes = {ViewQuery.class})
 public abstract class AbstractCouchDBInputOperator<T> extends AbstractStoreInputOperator<T, CouchDbStore>

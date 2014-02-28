@@ -21,6 +21,7 @@ import java.util.Map;
  * Implementation of {@link AbstractCouchDBOutputOperator} that saves a Map in the couch database.<br/>
  *
  * @since 0.3.5
+ * @dt-adapter CouchDB
  */
 public class MapBasedCouchDbOutputOperator extends AbstractCouchDBOutputOperator<Map<Object, Object>>
 {

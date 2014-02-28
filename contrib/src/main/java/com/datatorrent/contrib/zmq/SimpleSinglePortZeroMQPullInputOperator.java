@@ -23,6 +23,7 @@ import org.zeromq.ZMQ;
  * <p>Abstract SimpleSinglePortZeroMQPullInputOperator class.</p>
  *
  * @since 0.3.2
+ * @dt-adapter ZeroMQ
  */
 public abstract class SimpleSinglePortZeroMQPullInputOperator<T> extends SimpleSinglePortInputOperator<T> implements Runnable
 {

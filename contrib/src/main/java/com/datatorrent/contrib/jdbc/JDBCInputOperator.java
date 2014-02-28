@@ -51,6 +51,7 @@ import org.slf4j.LoggerFactory;
  * <br>
  *
  * @since 0.3.2
+ * @dt-adapter JDBC
  */
 public abstract class JDBCInputOperator<T> extends JDBCOperatorBase implements InputOperator
 {

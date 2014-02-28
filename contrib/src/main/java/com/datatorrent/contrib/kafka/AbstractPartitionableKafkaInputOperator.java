@@ -74,6 +74,7 @@ import com.google.common.collect.Sets;
  * <br>
  *
  * @since 0.9.0
+ * @dt-adapter Kafka
  */
 public abstract class AbstractPartitionableKafkaInputOperator extends AbstractKafkaInputOperator<KafkaConsumer> implements Partitionable<AbstractPartitionableKafkaInputOperator>, CheckpointListener, StatsListener
 {

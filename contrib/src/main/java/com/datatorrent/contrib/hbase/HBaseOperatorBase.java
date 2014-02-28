@@ -31,6 +31,7 @@ import org.apache.hadoop.hbase.client.HTable;
  * <br>
  *
  * @since 0.3.2
+ * @dt-adapter HBase
  */
 @ShipContainingJars(classes = {org.apache.hadoop.hbase.client.HTable.class})
 public class HBaseOperatorBase

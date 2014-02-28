@@ -22,6 +22,7 @@ import com.datatorrent.lib.db.AbstractKeyValueStoreInputOperator;
  *
  * @param <T> The tuple type.
  * @since 0.9.3
+ * @dt-adapter Redis
  */
 public abstract class AbstractRedisInputOperator<T> extends AbstractKeyValueStoreInputOperator<T, RedisStore>
 {

@@ -23,6 +23,7 @@ import com.datatorrent.lib.db.AbstractStoreOutputOperator;
  *
  * @param <T> type of tuple </T>
  * @since 0.3.5
+ * @dt-adapter CouchDB
  */
 public abstract class AbstractCouchDBOutputOperator<T> extends AbstractStoreOutputOperator<T, CouchDbStore>
 {

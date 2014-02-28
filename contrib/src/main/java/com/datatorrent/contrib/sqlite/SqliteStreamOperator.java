@@ -33,6 +33,7 @@ import org.slf4j.LoggerFactory;
  * <p>SqliteStreamOperator class.</p>
  *
  * @since 0.3.2
+ * @dt-adapter Sqlite
  */
 @ShipContainingJars(classes = {com.almworks.sqlite4java.SQLiteConnection.class})
 public class SqliteStreamOperator extends AbstractSqlStreamOperator

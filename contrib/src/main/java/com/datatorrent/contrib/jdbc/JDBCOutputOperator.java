@@ -85,6 +85,7 @@ import com.datatorrent.api.annotation.InputPortFieldAnnotation;
  * <br>
  *
  * @since 0.3.2
+ * @dt-adapter JDBC
  */
 public abstract class JDBCOutputOperator<T> extends JDBCOperatorBase implements Operator
 {

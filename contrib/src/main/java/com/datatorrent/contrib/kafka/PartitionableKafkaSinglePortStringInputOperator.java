@@ -23,6 +23,7 @@ import kafka.message.Message;
  * It consumes the kafka message as string and emit to 1 output port
  *
  * @since 0.9.0
+ * @dt-adapter Kafka
  */
 public class PartitionableKafkaSinglePortStringInputOperator extends AbstractPartitionableKafkaSinglePortInputOperator<String>
 {

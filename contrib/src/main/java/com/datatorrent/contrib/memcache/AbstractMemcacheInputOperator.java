@@ -23,6 +23,7 @@ import com.datatorrent.lib.db.AbstractKeyValueStoreInputOperator;
  *
  * @param <T> The tuple type.
  * @since 0.9.3
+ * @dt-adapter Memcached
  */
 public abstract class AbstractMemcacheInputOperator<T> extends AbstractKeyValueStoreInputOperator<T, MemcacheStore>
 {

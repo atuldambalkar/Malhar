@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
  * <br>
  *
  * @since 0.3.2
+ * @dt-adapter MongoDB
  */
 public abstract class MongoDBInputOperator<T> extends MongoDBOperatorBase implements InputOperator, ActivationListener<OperatorContext>
 {

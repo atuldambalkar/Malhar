@@ -23,6 +23,7 @@ import kafka.message.Message;
  * <p>Abstract AbstractPartitionableKafkaSinglePortInputOperator class.</p>
  *
  * @since 0.9.0
+ * @dt-adapter Kafka
  */
 public abstract class AbstractPartitionableKafkaSinglePortInputOperator<T> extends AbstractPartitionableKafkaInputOperator
 {

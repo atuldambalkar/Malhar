@@ -30,6 +30,7 @@ import org.slf4j.LoggerFactory;
  * MQTT input adapter operator, which receives data from MQTT and provide tuples to the DAG.<p><br>
  *
  * @since 0.9.3
+ * @dt-adapter MQTT
  */
 @ShipContainingJars(classes = {MQTT.class})
 public abstract class AbstractMqttInputOperator implements InputOperator, ActivationListener<OperatorContext>

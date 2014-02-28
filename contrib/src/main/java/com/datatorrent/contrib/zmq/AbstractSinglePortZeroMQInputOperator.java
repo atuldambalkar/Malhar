@@ -44,6 +44,7 @@ import com.datatorrent.api.DefaultOutputPort;
  * <br>
  *
  * @since 0.3.2
+ * @dt-adapter ZeroMQ
  */
 public abstract class AbstractSinglePortZeroMQInputOperator<T> extends AbstractBaseZeroMQInputOperator
 {

@@ -55,6 +55,7 @@ import org.slf4j.LoggerFactory;
  *  <br>
  *
  * @since 0.3.2
+ * @dt-adapter Kafka
  */
 //SimpleConsumer is kafka consumer client used by this operator, zkclient is used by high-level kafka consumer
 @ShipContainingJars(classes={kafka.javaapi.consumer.SimpleConsumer.class, org.I0Itec.zkclient.ZkClient.class, scala.Function.class, Metrics.class})

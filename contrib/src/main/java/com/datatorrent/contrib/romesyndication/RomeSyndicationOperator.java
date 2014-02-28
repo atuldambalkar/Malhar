@@ -44,6 +44,7 @@ import java.util.List;
  * <br>
  *
  * @since 0.3.2
+ * @dt-adapter Rome-Syndication
  */
 public class RomeSyndicationOperator extends SimpleSinglePortInputOperator<RomeFeedEntry> implements Runnable
 {

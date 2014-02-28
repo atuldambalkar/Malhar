@@ -28,6 +28,7 @@ import java.io.IOException;
  *
  * @param <T> The tuple type
  * @since 0.3.2
+ * @dt-adapter HBase
  */
 public abstract class HBaseInputOperator<T> extends HBaseOperatorBase implements InputOperator
 {

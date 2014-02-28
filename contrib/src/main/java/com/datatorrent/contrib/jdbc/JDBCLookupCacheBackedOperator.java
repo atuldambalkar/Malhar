@@ -26,6 +26,7 @@ import com.datatorrent.lib.database.DBConnector;
  *
  * @param <T> type of input tuples </T>
  * @since 0.9.1
+ * @dt-adapter JDBC
  */
 public abstract class JDBCLookupCacheBackedOperator<T> extends AbstractDBLookupCacheBackedOperator<T>
 {

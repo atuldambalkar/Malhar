@@ -33,6 +33,7 @@ import org.apache.hadoop.hbase.client.Result;
  *
  * @param <T> The tuple type
  * @since 0.3.2
+ * @dt-adapter HBase
  */
 public abstract class HBasePutOperator<T> extends HBaseOutputOperator<T>
 {

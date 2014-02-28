@@ -43,6 +43,7 @@ import kafka.message.Message;
  * <br>
  *
  * @since 0.3.2
+ * @dt-adapter Kafka
  */
 public abstract class AbstractKafkaSinglePortInputOperator<T> extends AbstractKafkaInputOperator<KafkaConsumer>
 {

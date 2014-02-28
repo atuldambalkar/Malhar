@@ -30,6 +30,7 @@ import java.util.Map;
  * of the ViewQuery every window cycle.
  *
  * @since 0.3.5
+ * @dt-adapter CouchDB
  */
 @ShipContainingJars(classes = {ObjectMapper.class})
 public abstract class AbstractMapBasedInputOperator extends AbstractCouchDBInputOperator<Map<Object, Object>>

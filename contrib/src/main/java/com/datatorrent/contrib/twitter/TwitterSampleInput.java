@@ -43,6 +43,7 @@ import com.datatorrent.api.annotation.ShipContainingJars;
  * Your twitter access token secret.
  *
  * @since 0.3.2
+ * @dt-adapter Twitter
  */
 @ShipContainingJars(classes = {StatusListener.class, Status.class})
 public class TwitterSampleInput implements InputOperator, ActivationListener<OperatorContext>, StatusListener

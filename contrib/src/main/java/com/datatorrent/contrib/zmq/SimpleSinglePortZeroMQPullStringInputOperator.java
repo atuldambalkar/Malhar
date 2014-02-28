@@ -21,6 +21,7 @@ import com.datatorrent.contrib.zmq.SimpleSinglePortZeroMQPullInputOperator;
  * <p>SimpleSinglePortZeroMQPullStringInputOperator class.</p>
  *
  * @since 0.3.2
+ * @dt-adapter ZeroMQ
  */
 public class SimpleSinglePortZeroMQPullStringInputOperator extends SimpleSinglePortZeroMQPullInputOperator<String>
 {

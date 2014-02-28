@@ -59,6 +59,7 @@ import org.slf4j.LoggerFactory;
  * <br>
  *
  * @since 0.3.2
+ * @dt-adapter RabbitMQ
  */
 @ShipContainingJars(classes={com.rabbitmq.client.ConnectionFactory.class})
 public abstract class AbstractRabbitMQInputOperator<T>
