@@ -36,6 +36,7 @@ import com.datatorrent.common.util.DTThrowable;
  * Reads as many words as possible in each dag window.
  *
  * @since 0.9.4
+ * @dt-adapter HDFS
  */
 public class HdfsWordInputOperator extends AbstractHDFSInputOperator
 {

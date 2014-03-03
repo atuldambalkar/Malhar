@@ -45,6 +45,7 @@ import org.slf4j.LoggerFactory;
  *
  * @since 0.3.2
  * @dt-adapter JDBC
+ * @dt-output-operator
  */
 public class JDBCTransactionHashMapOutputOperator<V> extends JDBCTransactionOutputOperator<HashMap<String, V>>
 {

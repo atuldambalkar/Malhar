@@ -45,6 +45,7 @@ import org.bson.types.ObjectId;
  *
  * @since 0.3.2
  * @dt-adapter MongoDB
+ * @dt-output-operator
  */
 public class MongoDBHashMapOutputOperator<T> extends MongoDBOutputOperator<HashMap<String, T>>
 {

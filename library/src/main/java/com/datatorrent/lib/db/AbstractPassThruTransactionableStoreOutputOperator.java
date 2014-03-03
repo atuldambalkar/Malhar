@@ -23,6 +23,7 @@ package com.datatorrent.lib.db;
  * @param <T> The tuple type
  * @param <S> The store type
  * @since 0.9.3
+ * @dt-output-operator
  */
 public abstract class AbstractPassThruTransactionableStoreOutputOperator<T, S extends TransactionableStore> extends AbstractTransactionableStoreOutputOperator<T, S>
 {

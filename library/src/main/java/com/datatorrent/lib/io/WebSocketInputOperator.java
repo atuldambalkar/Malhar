@@ -44,6 +44,7 @@ import org.slf4j.LoggerFactory;
  * <br>
  *
  * @since 0.3.2
+ * @dt-adapter WebSocket
  */
 @ShipContainingJars(classes = {com.ning.http.client.websocket.WebSocket.class})
 public class WebSocketInputOperator extends SimpleSinglePortInputOperator<Map<String, String>> implements Runnable

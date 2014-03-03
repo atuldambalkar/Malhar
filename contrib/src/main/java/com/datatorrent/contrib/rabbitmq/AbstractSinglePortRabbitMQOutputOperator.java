@@ -44,6 +44,7 @@ import com.datatorrent.api.DefaultInputPort;
  *
  * @since 0.3.2
  * @dt-adapter RabbitMQ
+ * @dt-output-operator
  */
 public abstract class AbstractSinglePortRabbitMQOutputOperator<T> extends AbstractRabbitMQOutputOperator
 {

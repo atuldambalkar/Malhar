@@ -24,6 +24,7 @@ import javax.jms.TextMessage;
  * <p>ActiveMQStringInputOperator class.</p>
  *
  * @since 0.3.3
+ * @dt-adapter ActiveMQ
  */
 public class ActiveMQSinglePortStringInputOperator extends AbstractActiveMQSinglePortInputOperator<String>
 {

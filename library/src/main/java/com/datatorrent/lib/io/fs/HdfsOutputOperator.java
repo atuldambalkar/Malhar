@@ -41,6 +41,8 @@ import com.datatorrent.api.DefaultInputPort;
  * <br>
  *
  * @since 0.3.2
+ * @dt-adapter HDFS
+ * @dt-output-operator
  */
 public class HdfsOutputOperator extends BaseOperator
 {

@@ -45,6 +45,7 @@ import com.datatorrent.api.annotation.OutputPortFieldAnnotation;
  *
  * @param <T>
  * @since 0.3.2
+ * @dt-adapter ActiveMQ
  */
 public abstract class AbstractActiveMQSinglePortInputOperator<T> extends
 		AbstractActiveMQInputOperator

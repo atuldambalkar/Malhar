@@ -52,6 +52,7 @@ import org.slf4j.LoggerFactory;
  *
  * @since 0.3.2
  * @dt-adapter RabbitMQ
+ * @dt-output-operator
  */
 public class AbstractRabbitMQOutputOperator extends BaseOperator
 {

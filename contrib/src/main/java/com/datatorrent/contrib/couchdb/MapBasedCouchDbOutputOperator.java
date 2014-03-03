@@ -22,6 +22,7 @@ import java.util.Map;
  *
  * @since 0.3.5
  * @dt-adapter CouchDB
+ * @dt-output-operator
  */
 public class MapBasedCouchDbOutputOperator extends AbstractCouchDBOutputOperator<Map<Object, Object>>
 {

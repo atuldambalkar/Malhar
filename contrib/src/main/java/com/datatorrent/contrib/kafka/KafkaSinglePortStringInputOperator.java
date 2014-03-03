@@ -23,6 +23,7 @@ import kafka.message.Message;
  *
  * @since 0.3.5
  * @dt-adapter Kafka
+ * @dt-output-operator
  */
 public class KafkaSinglePortStringInputOperator extends AbstractKafkaSinglePortInputOperator<String>
 {

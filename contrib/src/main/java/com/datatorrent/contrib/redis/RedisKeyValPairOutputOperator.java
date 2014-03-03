@@ -26,6 +26,7 @@ import com.datatorrent.lib.util.KeyValPair;
  * @param <V> The value type.
  * @since 0.3.2
  * @dt-adapter Redis
+ * @dt-output-operator
  */
 public class RedisKeyValPairOutputOperator<K, V> extends AbstractRedisPassThruOutputOperator<KeyValPair<K, V>>
 {

@@ -30,6 +30,7 @@ import java.util.Map;
  * @param <V> The value type
  * @since 0.3.2
  * @dt-adapter Redis
+ * @dt-output-operator
  */
 public class RedisNumberSummationKeyValPairOutputOperator<K, V> extends AbstractRedisAggregateOutputOperator<KeyValPair<K, V>>
 {

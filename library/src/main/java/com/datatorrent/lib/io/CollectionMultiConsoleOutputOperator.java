@@ -35,6 +35,7 @@ import com.datatorrent.api.DefaultInputPort;
  * <br>
  *
  * @since 0.3.4
+ * @dt-output-operator
  */
 public class CollectionMultiConsoleOutputOperator<E> extends BaseOperator
 {

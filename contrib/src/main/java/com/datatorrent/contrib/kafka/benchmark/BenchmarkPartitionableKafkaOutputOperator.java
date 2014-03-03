@@ -38,6 +38,7 @@ import com.yammer.metrics.Metrics;
  *
  * @since 0.9.3
  * @dt-adapter Kafka
+ * @dt-output-operator
  */
 @ShipContainingJars(classes={kafka.javaapi.consumer.SimpleConsumer.class, org.I0Itec.zkclient.ZkClient.class, scala.ScalaObject.class, Metrics.class})
 public class BenchmarkPartitionableKafkaOutputOperator implements Partitionable<BenchmarkPartitionableKafkaOutputOperator>, InputOperator, ActivationListener<OperatorContext>

@@ -25,6 +25,7 @@ import redis.clients.jedis.Jedis;
  * @param <T> The tuple type.
  * @since 0.9.3
  * @dt-adapter Redis
+ * @dt-output-operator
  */
 @ShipContainingJars(classes = {Jedis.class})
 public abstract class AbstractRedisAggregateOutputOperator<T>

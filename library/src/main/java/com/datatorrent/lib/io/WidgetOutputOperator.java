@@ -49,6 +49,7 @@ import com.google.common.collect.Maps;
  *  If DT gateway is not specified, it will use output data to console.
  *
  * @since 0.9.3
+ * @dt-output-operator
  */
 @ShipContainingJars(classes = {com.ning.http.client.websocket.WebSocket.class})
 public class WidgetOutputOperator extends BaseOperator

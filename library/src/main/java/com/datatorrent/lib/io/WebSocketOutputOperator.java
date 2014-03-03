@@ -46,6 +46,8 @@ import com.datatorrent.api.annotation.ShipContainingJars;
  *
  * @param <T> tuple type
  * @since 0.3.2
+ * @dt-adapter WebSocket
+ * @dt-output-operator
  */
 @ShipContainingJars(classes = {com.ning.http.client.websocket.WebSocket.class})
 public class WebSocketOutputOperator<T> extends BaseOperator

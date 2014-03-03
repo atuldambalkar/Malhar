@@ -35,6 +35,8 @@ import org.slf4j.LoggerFactory;
  * <p>SmtpOutputOperator class.</p>
  *
  * @since 0.3.2
+ * @dt-adapter SMTP
+ * @dt-output-operator
  */
 @ShipContainingJars(classes = {javax.mail.Session.class, com.sun.mail.util.MailLogger.class})
 public class SmtpOutputOperator extends BaseOperator

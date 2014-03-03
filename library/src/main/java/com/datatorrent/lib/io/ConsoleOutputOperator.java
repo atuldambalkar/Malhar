@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
  * <br>
  *
  * @since 0.3.2
+ * @dt-output-operator
  */
 public class ConsoleOutputOperator extends BaseOperator
 {

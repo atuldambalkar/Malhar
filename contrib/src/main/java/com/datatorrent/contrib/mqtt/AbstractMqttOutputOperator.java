@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
  *
  * @since 0.9.3
  * @dt-adapter MQTT
+ * @dt-output-operator
  */
 @ShipContainingJars(classes = {MQTT.class})
 public class AbstractMqttOutputOperator extends BaseOperator

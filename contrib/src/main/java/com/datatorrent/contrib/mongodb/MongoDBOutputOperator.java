@@ -74,6 +74,7 @@ import org.slf4j.LoggerFactory;
  *
  * @since 0.3.2
  * @dt-adapter MongoDB
+ * @dt-output-operator
  */
 public abstract class MongoDBOutputOperator<T> extends MongoDBOperatorBase implements Operator
 {

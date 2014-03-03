@@ -24,6 +24,7 @@ import com.datatorrent.api.DAG;
  *
  * @param <T> type of the tuple
  * @param <S> store type
+ * @dt-output-operator
  */
 public abstract class AbstractWindowAwareOutputOperator<T, S extends WindowAware> extends AbstractStoreOutputOperator<T, S>
 {

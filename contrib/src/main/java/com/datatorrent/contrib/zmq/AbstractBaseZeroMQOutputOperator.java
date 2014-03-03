@@ -51,6 +51,7 @@ import org.zeromq.ZMQ;
  *
  * @since 0.3.2
  * @dt-adapter ZeroMQ
+ * @dt-output-operator
  */
 @ShipContainingJars(classes={org.zeromq.ZMQ.Socket.class})
 public abstract class AbstractBaseZeroMQOutputOperator extends BaseOperator

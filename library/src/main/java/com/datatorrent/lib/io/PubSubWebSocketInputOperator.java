@@ -29,6 +29,7 @@ import org.slf4j.LoggerFactory;
  * <p>PubSubWebSocketInputOperator class.</p>
  *
  * @since 0.3.2
+ * @dt-adapter WebSocket
  */
 public class PubSubWebSocketInputOperator extends WebSocketInputOperator
 {

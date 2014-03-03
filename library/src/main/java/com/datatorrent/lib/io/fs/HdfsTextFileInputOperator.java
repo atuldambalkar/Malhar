@@ -33,6 +33,7 @@ import com.datatorrent.api.annotation.OutputPortFieldAnnotation;
  * Read #linesEachWindow lines for each dag window
  *
  * @since 0.3.4
+ * @dt-adapter HDFS
  */
 public class HdfsTextFileInputOperator extends AbstractHDFSInputOperator
 {

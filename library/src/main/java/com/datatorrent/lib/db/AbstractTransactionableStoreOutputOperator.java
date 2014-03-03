@@ -30,6 +30,7 @@ import javax.validation.constraints.NotNull;
  * @param <T> The type of the tuple
  * @param <S> The store type
  * @since 0.9.3
+ * @dt-output-operator
  */
 public abstract class AbstractTransactionableStoreOutputOperator<T, S extends TransactionableStore> extends BaseOperator
 {

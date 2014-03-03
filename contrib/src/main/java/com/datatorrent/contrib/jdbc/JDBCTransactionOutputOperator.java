@@ -55,6 +55,7 @@ import org.slf4j.LoggerFactory;
  *
  * @since 0.3.2
  * @dt-adapter JDBC
+ * @dt-output-operator
  */
 public abstract class JDBCTransactionOutputOperator<T> extends JDBCOutputOperator<T>
 {

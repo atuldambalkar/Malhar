@@ -41,6 +41,7 @@ import org.fusesource.mqtt.client.Message;
  *
  * @since 0.9.3
  * @dt-adapter MQTT
+ * @dt-output-operator
  */
 public abstract class AbstractSinglePortMqttOutputOperator<T> extends AbstractMqttOutputOperator
 {

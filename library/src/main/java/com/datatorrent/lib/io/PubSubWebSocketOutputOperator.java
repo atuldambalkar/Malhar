@@ -25,6 +25,8 @@ import java.io.IOException;
  *
  * @param <T>
  * @since 0.3.2
+ * @dt-adapter WebSocket
+ * @dt-output-operator
  */
 public class PubSubWebSocketOutputOperator<T> extends WebSocketOutputOperator<T>
 {

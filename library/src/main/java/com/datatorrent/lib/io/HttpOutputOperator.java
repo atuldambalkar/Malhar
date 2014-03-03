@@ -41,6 +41,8 @@ import com.datatorrent.api.annotation.ShipContainingJars;
  *
  * @param <T>
  * @since 0.3.2
+ * @dt-adapter HTTP
+ * @dt-output-operator
  */
 @ShipContainingJars(classes = {com.sun.jersey.api.client.ClientHandler.class})
 public class HttpOutputOperator<T> extends BaseOperator

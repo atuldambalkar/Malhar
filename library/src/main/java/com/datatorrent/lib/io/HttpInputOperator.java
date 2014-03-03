@@ -50,6 +50,8 @@ import com.sun.jersey.api.client.WebResource;
  * <br>
  *
  * @since 0.3.2
+ * @dt-adapter HTTP
+ * @dt-output-operator
  */
 @ShipContainingJars(classes = {com.sun.jersey.api.client.ClientHandler.class})
 public class HttpInputOperator extends SimpleSinglePortInputOperator<Map<String, String>> implements Runnable

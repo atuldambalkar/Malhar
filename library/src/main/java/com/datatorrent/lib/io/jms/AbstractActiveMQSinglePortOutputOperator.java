@@ -45,6 +45,8 @@ import org.slf4j.LoggerFactory;
  * <br>
  *
  * @since 0.3.2
+ * @dt-adapter ActiveMQ
+ * @dt-output-operator
  */
 public abstract class AbstractActiveMQSinglePortOutputOperator<T> extends AbstractActiveMQOutputOperator
 {

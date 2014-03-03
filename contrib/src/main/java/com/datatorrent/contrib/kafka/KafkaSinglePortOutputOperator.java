@@ -45,6 +45,7 @@ import kafka.producer.ProducerConfig;
  *
  * @since 0.3.2
  * @dt-adapter Kafka
+ * @dt-output-operator
  */
 public class KafkaSinglePortOutputOperator<K, V> extends AbstractKafkaOutputOperator<K, V>
 {
