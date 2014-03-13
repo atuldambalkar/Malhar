@@ -27,6 +27,10 @@ import java.util.List;
 
 /**
  * Forecaster operator to forecast value for given time period.
+ *
+ * Forecast value for the given time value is calculated using following formula -
+ *
+ * Forecast value = (intercept + slope * timeValue) * stItForTimePeriod
  */
 public class SLRTimeSeriesForecastingOperator extends BaseOperator {
 
