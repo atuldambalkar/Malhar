@@ -41,7 +41,7 @@ import javax.validation.constraints.NotNull;
  *
  * TODO: Explore if this can be turned into SlidingWindow operator
  */
-public class MemoryOptimizedCMASmoothingOperator extends BaseOperator {
+public class CMASmoothingOperator extends BaseOperator {
 
     /**
      * Number of time intervals in a time-series cycle.
@@ -61,7 +61,7 @@ public class MemoryOptimizedCMASmoothingOperator extends BaseOperator {
 
     public transient DefaultOutputPort<TimeSeriesData> cmaOutputPort = new DefaultOutputPort<TimeSeriesData>();
 
-    public MemoryOptimizedCMASmoothingOperator() {
+    public CMASmoothingOperator() {
     }
 
     public void setNumberOfTimeIntervalsInCycle(int numberOfTimeIntervalsInCycle) {
