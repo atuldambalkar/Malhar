@@ -25,12 +25,12 @@ import java.util.List;
 /**
  * Test cases for CMASmoothing Operator.
  */
-public class MemoryOptimizedCMASmoothingOperatorTest {
+public class CMASmoothingOperatorTest {
 
     @Test
     public void testEvenTimeIntervals() {
 
-        MemoryOptimizedCMASmoothingOperator oper = new MemoryOptimizedCMASmoothingOperator();
+        CMASmoothingOperator oper = new CMASmoothingOperator();
         oper.setNumberOfTimeIntervalsInCycle(4);
         oper.setup(null);
         CollectorTestSink sink = new CollectorTestSink();
@@ -88,7 +88,7 @@ public class MemoryOptimizedCMASmoothingOperatorTest {
     @Test
     public void testOddTimeIntervals() {
 
-        MemoryOptimizedCMASmoothingOperator oper = new MemoryOptimizedCMASmoothingOperator();
+        CMASmoothingOperator oper = new CMASmoothingOperator();
         oper.setNumberOfTimeIntervalsInCycle(5);
         oper.setup(null);
         CollectorTestSink sink = new CollectorTestSink();
