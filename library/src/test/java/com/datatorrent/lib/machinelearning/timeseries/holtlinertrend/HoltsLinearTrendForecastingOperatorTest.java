@@ -10,6 +10,8 @@ import java.util.List;
 
 /**
  * Test class for Holt's Linear Trend Forecaster.
+ *
+ * This test case refers to - https://www.otexts.org/fpp/7/2
  */
 public class HoltsLinearTrendForecastingOperatorTest {
 
