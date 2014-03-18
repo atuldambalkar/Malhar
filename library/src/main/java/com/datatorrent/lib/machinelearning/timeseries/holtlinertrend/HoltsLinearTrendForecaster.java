@@ -1,5 +1,7 @@
 package com.datatorrent.lib.machinelearning.timeseries.holtlinertrend;
 
+import com.datatorrent.lib.machinelearning.ModelNotReadyException;
+
 import java.util.List;
 
 /**
@@ -40,9 +42,9 @@ public class HoltsLinearTrendForecaster {
         this.data = data;
     }
 
-    public double computeForecast(int future, boolean useRecursion) {
+    public double computeForecast(int future, boolean useRecursion) throws ModelNotReadyException {
         if (alpha == null || beta == null || data == null) {
-            throw new IllegalArgumentException("Smoothing constants alpha, beta and Time Series data can't be empty!");
+            throw new ModelNotReadyException("Smoothing constants alpha, beta and Time Series data can't be empty!");
         }
         if (future > data.size()) {
             return recursivelyComputeForecast(data.size(), (future - (data.size() - 1)) == 0? 1: future - (data.size() - 1));
