@@ -22,7 +22,7 @@ import com.datatorrent.lib.io.ConsoleOutputOperator;
 import com.datatorrent.lib.machinelearning.timeseries.linearregression.SLRTimeSeriesDataAggregator;
 import com.datatorrent.lib.machinelearning.timeseries.linearregression.SLRTimeSeriesForecastingOperator;
 import com.datatorrent.lib.machinelearning.timeseries.smoothing.centeredmovingaverage.DeseasonalizerOperator;
-import com.datatorrent.lib.machinelearning.timeseries.smoothing.centeredmovingaverage.MemoryOptimizedCMASmoothingOperator;
+import com.datatorrent.lib.machinelearning.timeseries.smoothing.centeredmovingaverage.CMASmoothingOperator;
 import org.apache.hadoop.conf.Configuration;
 
 /**
@@ -40,7 +40,7 @@ public class Application implements StreamingApplication {
         InputGenerator input = dag.addOperator("input", InputGenerator.class);
         dag.setOutputPortAttribute(input.queryOutputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
 
-        MemoryOptimizedCMASmoothingOperator cmaSmoothener = new MemoryOptimizedCMASmoothingOperator();
+        CMASmoothingOperator cmaSmoothener = new CMASmoothingOperator();
         cmaSmoothener.setNumberOfTimeIntervalsInCycle(24);
         dag.addOperator("cmaSmoothing", cmaSmoothener);
         dag.setOutputPortAttribute(cmaSmoothener.cmaOutputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
