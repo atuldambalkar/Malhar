@@ -46,9 +46,12 @@ public class HoltsLinearTrendForecasterTest {
         Assert.assertEquals(45.721806161931184, value);
 
         value = forecaster.computeForecast(17, true);
-        value = forecaster.computeForecast(18, true);
-        value = forecaster.computeForecast(19, true);
+        Assert.assertEquals(47.61177184568906, value);
 
-        Assert.assertEquals(true, true);
+        value = forecaster.computeForecast(18, true);
+        Assert.assertEquals(49.50173752944694, value);
+
+        value = forecaster.computeForecast(19, true);
+        Assert.assertEquals(51.39170321320482, value);
     }
 }
