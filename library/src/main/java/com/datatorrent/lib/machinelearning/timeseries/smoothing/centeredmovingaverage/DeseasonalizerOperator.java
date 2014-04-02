@@ -40,6 +40,9 @@ import java.util.List;
  * 3. Calculate the deseasonalized value (in endWindow) by using SsubT as,
  *   Deseasonalized YsubT = YsubT / SsubT
  *
+ * This operator emits the seasonal component by removing the irregularity component. The irregularity component is removed by computing the
+ * averages for SsubT * IsubT values for each time interval across all the time-series cycle data sets.
+ *
  * Reference links -
  * <ul>
  *   <li>http://www.youtube.com/watch?v=gHdYEZA50KE</li>
@@ -105,6 +108,10 @@ public class DeseasonalizerOperator extends BaseOperator {
         }
     };
 
+    /**
+     * Emit the seasonal component by removing the irregularity component. The irregularity component is removed by computing the
+     * averages for SsubT * IsubT values for each time interval across all the time-series cycle data sets.
+     */
     @Override
     public void endWindow() {
         // go through the stItList and calculate the averages for each time interval
