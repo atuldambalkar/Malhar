@@ -69,7 +69,7 @@ public class Application implements StreamingApplication {
         dag.setInputPortAttribute(slrTimeSeriesForecaster.slrTimeSeriesModelPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
 
 //        ConsoleOutputOperator valueConsole = dag.addOperator("forecastingValueConsole", ConsoleOutputOperator.class);
-        ConsoleOutputOperator messageConsole = dag.addOperator("forecastingMessageConsole", ConsoleOutputOperator.class);
+        ConsoleOutputOperator messageConsole = dag.addOperator("forecastingConsole", ConsoleOutputOperator.class);
 
         dag.addStream("timeSeriesData", input.timeSeriesDataOutputPort, cmaSmoothener.timeSeriesDataPort);
         dag.addStream("cmaSmoothenedData", cmaSmoothener.cmaOutputPort, deseasonalizer.cmaSmoothenedTimeSeriesPort);
@@ -78,6 +78,6 @@ public class Application implements StreamingApplication {
         dag.addStream("slrTimeSeriesModel", slrTimeSeriesAggregator.modelOutputPort, slrTimeSeriesForecaster.slrTimeSeriesModelPort);
         dag.addStream("queryData", input.queryOutputPort, slrTimeSeriesForecaster.forecastInputPort);
 //        dag.addStream("valueForecaster", slrTimeSeriesForecaster.forecastOutputPort, valueConsole.input);
-        dag.addStream("valueMessageForecaster", slrTimeSeriesForecaster.forecastMessagePort, messageConsole.input);
+        dag.addStream("messageForecaster", slrTimeSeriesForecaster.forecastMessagePort, messageConsole.input);
     }
 }
