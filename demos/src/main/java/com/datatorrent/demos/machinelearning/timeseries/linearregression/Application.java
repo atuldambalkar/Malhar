@@ -61,12 +61,15 @@ public class Application implements StreamingApplication {
 
         SLRTimeSeriesForecastingOperator slrTimeSeriesForecaster = new SLRTimeSeriesForecastingOperator();
         slrTimeSeriesForecaster.setNumberOfTimeIntervalsInCycle(24);
+        slrTimeSeriesForecaster.setTimeUnitMessage("Hours in future");
+        slrTimeSeriesForecaster.setValueMessage("Calls");
         dag.addOperator("slrTimeSeriesForecaster", slrTimeSeriesForecaster);
         dag.setOutputPortAttribute(slrTimeSeriesForecaster.forecastOutputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
         dag.setInputPortAttribute(slrTimeSeriesForecaster.forecastInputPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
         dag.setInputPortAttribute(slrTimeSeriesForecaster.slrTimeSeriesModelPort, Context.PortContext.QUEUE_CAPACITY, 32 * 1024);
 
-        ConsoleOutputOperator console = dag.addOperator("forecastingConsole", ConsoleOutputOperator.class);
+        ConsoleOutputOperator valueConsole = dag.addOperator("forecastingValueConsole", ConsoleOutputOperator.class);
+        ConsoleOutputOperator messageConsole = dag.addOperator("forecastingMessageConsole", ConsoleOutputOperator.class);
 
         dag.addStream("timeSeriesData", input.timeSeriesDataOutputPort, cmaSmoothener.timeSeriesDataPort);
         dag.addStream("cmaSmoothenedData", cmaSmoothener.cmaOutputPort, deseasonalizer.cmaSmoothenedTimeSeriesPort);
@@ -74,6 +77,7 @@ public class Application implements StreamingApplication {
         dag.addStream("stItData", deseasonalizer.stItPort, slrTimeSeriesForecaster.stItInputPort);
         dag.addStream("slrTimeSeriesModel", slrTimeSeriesAggregator.modelOutputPort, slrTimeSeriesForecaster.slrTimeSeriesModelPort);
         dag.addStream("queryData", input.queryOutputPort, slrTimeSeriesForecaster.forecastInputPort);
-        dag.addStream("forecaster", slrTimeSeriesForecaster.forecastOutputPort, console.input);
+        dag.addStream("valueForecaster", slrTimeSeriesForecaster.forecastOutputPort, valueConsole.input);
+        dag.addStream("valueMessageForecaster", slrTimeSeriesForecaster.forecastMessagePort, messageConsole.input);
     }
 }

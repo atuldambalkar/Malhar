@@ -37,6 +37,12 @@ public class SLRTimeSeriesForecastingOperator extends BaseOperator {
     @NotNull
     private int numberOfTimeIntervalsInCycle;
 
+    @NotNull
+    private String timeUnitMessage;
+
+    @NotNull
+    private String valueMessage;
+
     private List<Double> stItList;
     private SLRTimeSeries.Model slrTimeSeriesModel;
     private long windowId;
@@ -47,12 +53,21 @@ public class SLRTimeSeriesForecastingOperator extends BaseOperator {
         this.numberOfTimeIntervalsInCycle = numberOfTimeIntervalsInCycle;
     }
 
+    public void setTimeUnitMessage(String timeUnitMessage) {
+        this.timeUnitMessage = timeUnitMessage;
+    }
+
+    public void setValueMessage(String valueMessage) {
+        this.valueMessage = valueMessage;
+    }
+
     @Override
     public void beginWindow(long windowId) {
         this.windowId = windowId;
     }
 
     public transient DefaultOutputPort<Double> forecastOutputPort = new DefaultOutputPort<Double>();
+    public transient DefaultOutputPort<String> forecastMessagePort = new DefaultOutputPort<String>();
 
     public transient DefaultInputPort<List<Double>> stItInputPort = new DefaultInputPort<List<Double>>() {
         @Override
@@ -81,9 +96,13 @@ public class SLRTimeSeriesForecastingOperator extends BaseOperator {
                 timeIntervalInCycle = numberOfTimeIntervalsInCycle;
             }
             double forecast = (slrTimeSeriesModel.intercept + slrTimeSeriesModel.slope * timeValue) * stItList.get(timeIntervalInCycle - 1);
-            logger.debug("WindowId: " + windowId + ", Query: " + timeValue + " Interept:" + slrTimeSeriesModel.slope + " Slope:" + slrTimeSeriesModel.intercept + " Forecast: " + forecast);
+            logger.debug("WindowId: " + windowId + ", Query: " + timeValue + " Intercept:" + slrTimeSeriesModel.slope + " Slope:" + slrTimeSeriesModel.intercept + " Forecast: " + forecast);
+            StringBuffer forecastBuffer = new StringBuffer().append("Future time period: ")
+                    .append(timeValue).append(" ").append(timeUnitMessage)
+                    .append(", Forecasted value: ").append(forecast).append(" ").append(valueMessage);
             // (intercept + slope * timeValue) * stItForTimePeriod
             forecastOutputPort.emit(forecast);
+            forecastMessagePort.emit(forecastBuffer.toString());
         }
     };
 }
