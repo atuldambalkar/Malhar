@@ -1,6 +1,6 @@
 package com.datatorrent.lib.machinelearning.timeseries.holtlinertrend;
 
-import com.datatorrent.lib.machinelearning.ModelNotReadyException;
+import com.datatorrent.lib.machinelearning.ModelCreationException;
 import com.datatorrent.lib.testbench.CollectorTestSink;
 import junit.framework.Assert;
 import org.junit.Test;
@@ -16,7 +16,7 @@ import java.util.List;
 public class HoltsLinearTrendForecastingOperatorTest {
 
     @Test
-    public void test() throws ModelNotReadyException {
+    public void test() throws ModelCreationException {
         double values[] = {
                 17.55,
                 21.86,

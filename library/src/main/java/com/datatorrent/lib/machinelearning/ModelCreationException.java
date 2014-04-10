@@ -3,12 +3,12 @@ package com.datatorrent.lib.machinelearning;
 /**
  * Exception to indicate that the Machine Learning model is not yet ready to predict the future.
  */
-public class ModelNotReadyException extends  Exception {
+public class ModelCreationException extends  Exception {
 
-    public ModelNotReadyException() {
+    public ModelCreationException() {
     }
 
-    public ModelNotReadyException(String message) {
+    public ModelCreationException(String message) {
         super(message);
     }
 }

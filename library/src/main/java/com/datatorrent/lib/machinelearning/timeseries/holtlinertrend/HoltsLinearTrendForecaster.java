@@ -1,6 +1,6 @@
 package com.datatorrent.lib.machinelearning.timeseries.holtlinertrend;
 
-import com.datatorrent.lib.machinelearning.ModelNotReadyException;
+import com.datatorrent.lib.machinelearning.ModelCreationException;
 
 import java.util.List;
 
@@ -42,9 +42,9 @@ public class HoltsLinearTrendForecaster {
         this.data = data;
     }
 
-    public double computeForecast(int future, boolean useRecursion) throws ModelNotReadyException {
+    public double computeForecast(int future, boolean useRecursion) throws ModelCreationException {
         if (alpha == null || beta == null || data == null) {
-            throw new ModelNotReadyException("Smoothing constants alpha, beta and Time Series data can't be empty!");
+            throw new ModelCreationException("Smoothing constants alpha, beta and Time Series data can't be empty!");
         }
         if (future > data.size()) {
             return recursivelyComputeForecast(data.size(), (future - (data.size() - 1)) == 0? 1: future - (data.size() - 1));
@@ -52,29 +52,35 @@ public class HoltsLinearTrendForecaster {
         return data.get(future);
     }
 
+    /**
+     * Compute forecast for the next future period along with step-ahead value. The step-ahead number is simply the period in future.
+     * @param tplusOne
+     * @param stepAhead
+     * @return
+     */
     private double recursivelyComputeForecast(int tplusOne, int stepAhead) {
         if (tplusOne == 0) {
             return 0;
         }
         int t = tplusOne - 1;
-        double lsubt = recursivelyComputeValue(t);
+        double lsubt = recursivelyComputeLevel(t);
         double bsubt = recursivelyComputeSlope(t);
 
         return lsubt + stepAhead * bsubt;
     }
 
-    private double recursivelyComputeValue(int t) {
+    private double recursivelyComputeLevel(int t) {
         if (t == 0) {
             return 0;
         }
-        return (alpha * data.get(t)) + ((1 - alpha) * (recursivelyComputeValue(t - 1) + recursivelyComputeSlope(t - 1)));
+        return (alpha * data.get(t)) + ((1 - alpha) * (recursivelyComputeLevel(t - 1) + recursivelyComputeSlope(t - 1)));
     }
 
     private double recursivelyComputeSlope(int t) {
         if (t == 0) {
             return 0;
         }
-        return (beta * (recursivelyComputeValue(t) - recursivelyComputeValue(t - 1))) + ((1 - beta) * recursivelyComputeSlope(t - 1));
+        return (beta * (recursivelyComputeLevel(t) - recursivelyComputeLevel(t - 1))) + ((1 - beta) * recursivelyComputeSlope(t - 1));
     }
 
 //    private double iterativelyComputeForecast(int period) {
