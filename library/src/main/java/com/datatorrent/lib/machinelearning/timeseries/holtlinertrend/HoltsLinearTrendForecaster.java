@@ -54,6 +54,9 @@ public class HoltsLinearTrendForecaster {
 
     /**
      * Compute forecast for the next future period along with step-ahead value. The step-ahead number is simply the period in future.
+     *
+     * Currently there is only recursive implementation of the algorithm that uses dynamic programming approach to reduce number of recursive calls.
+     *
      * @param tplusOne
      * @param stepAhead
      * @return

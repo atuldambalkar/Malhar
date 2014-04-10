@@ -121,6 +121,14 @@ public class HoltWintersSeasonalMultiplicativeForecaster {
 
     }
 
+    /**
+     * Currently there is only recursive implementation of the algorithm that uses dynamic programming approach to reduce number of recursive calls.
+     *
+     * @param future
+     * @param useRecursion
+     * @return
+     * @throws ModelCreationException
+     */
     public double computeForecast(int future, boolean useRecursion) throws ModelCreationException {
         if (alpha == null || beta == null || gamma == null || data == null) {
             throw new ModelCreationException("Smoothing constants alpha, beta, gamma and Time Series data can't be empty!");
