@@ -33,6 +33,9 @@ public class HoltsLinearTrendForecaster {
 
     private List<Double> data;
 
+    private Double[] lcache;
+    private Double[] bcache;
+
     public HoltsLinearTrendForecaster(double alpha, double beta) {
         this.alpha = alpha;
         this.beta = beta;
@@ -42,12 +45,29 @@ public class HoltsLinearTrendForecaster {
         this.data = data;
     }
 
+    /**
+     * Initialize the model by computing values for first cycle in the given training data.
+     *
+     * level = average of all the values in first cycle.
+     * trend = (last value in cycle - first value in cycle) / number of periods
+     * seasonality = value in cycle / calculated level
+     */
+    private void init(int future) throws ModelCreationException {
+        if (data == null || data.size() == 0) {
+            throw new ModelCreationException("No training data available for initializing the model");
+        }
+
+        this.lcache = new Double[future];
+        this.bcache = new Double[future];
+    }
+
     public double computeForecast(int future, boolean useRecursion) throws ModelCreationException {
         if (alpha == null || beta == null || data == null) {
             throw new ModelCreationException("Smoothing constants alpha, beta and Time Series data can't be empty!");
         }
+        init(future);
         if (future > data.size()) {
-            return recursivelyComputeForecast(data.size(), (future - (data.size() - 1)) == 0? 1: future - (data.size() - 1));
+            return recursivelyComputeForecast(data.size(), future - data.size());
         }
         return data.get(future);
     }
@@ -57,15 +77,14 @@ public class HoltsLinearTrendForecaster {
      *
      * Currently there is only recursive implementation of the algorithm that uses dynamic programming approach to reduce number of recursive calls.
      *
-     * @param tplusOne
+     * @param t
      * @param stepAhead
      * @return
      */
-    private double recursivelyComputeForecast(int tplusOne, int stepAhead) {
-        if (tplusOne == 0) {
+    private double recursivelyComputeForecast(int t, int stepAhead) {
+        if (t == 0) {
             return 0;
         }
-        int t = tplusOne - 1;
         double lsubt = recursivelyComputeLevel(t);
         double bsubt = recursivelyComputeSlope(t);
 
@@ -76,25 +95,19 @@ public class HoltsLinearTrendForecaster {
         if (t == 0) {
             return 0;
         }
-        return (alpha * data.get(t)) + ((1 - alpha) * (recursivelyComputeLevel(t - 1) + recursivelyComputeSlope(t - 1)));
+        if (lcache[t] == null) {
+            lcache[t] = (alpha * data.get(t - 1)) + ((1 - alpha) * (recursivelyComputeLevel(t - 1) + recursivelyComputeSlope(t - 1)));
+        }
+        return lcache[t];
     }
 
     private double recursivelyComputeSlope(int t) {
         if (t == 0) {
             return 0;
         }
-        return (beta * (recursivelyComputeLevel(t) - recursivelyComputeLevel(t - 1))) + ((1 - beta) * recursivelyComputeSlope(t - 1));
+        if (bcache[t] == null) {
+            bcache[t] = (beta * (recursivelyComputeLevel(t) - recursivelyComputeLevel(t - 1))) + ((1 - beta) * recursivelyComputeSlope(t - 1));
+        }
+        return bcache[t];
     }
-
-//    private double iterativelyComputeForecast(int period) {
-//        double forecast = 0;
-//        for (int i = 0; i < period; i++) {
-//            forecast = computeLastForecast(i, forecast);
-//        }
-//        return forecast;
-//    }
-//
-//    private double computeLastForecast(int period, double lastForecast) {
-//        return (alpha * data.get(period)) + ((1 - alpha) * lastForecast);
-//    }
 }
