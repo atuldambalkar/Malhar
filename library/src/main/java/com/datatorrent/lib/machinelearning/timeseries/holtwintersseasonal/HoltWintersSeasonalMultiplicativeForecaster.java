@@ -5,7 +5,7 @@ import com.datatorrent.lib.machinelearning.ModelCreationException;
 import java.util.List;
 
 /**
- * Class that implements Holt Winters' Seasonal Forecasting with Additive Method Model for time series base forecasting.
+ * Class that implements Holt Winters' Seasonal Forecasting with Multiplicative Method Model for time series base forecasting.
  *
  * Forecast equation - yhatt+h = (lsubt-1 + h * bsubt-1) * ssubt-m+hsubmplus
  *     where hsubmpplus = floor ((h−1)mod m) + 1
