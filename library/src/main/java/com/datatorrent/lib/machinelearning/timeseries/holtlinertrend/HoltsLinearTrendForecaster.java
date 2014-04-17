@@ -65,6 +65,9 @@ public class HoltsLinearTrendForecaster {
         if (alpha == null || beta == null || data == null) {
             throw new ModelCreationException("Smoothing constants alpha, beta and Time Series data can't be empty!");
         }
+        if (future <= data.size()) {
+            throw new ModelCreationException("Future period must be in future for the given training data");
+        }
         init(future);
         if (future > data.size()) {
             return recursivelyComputeForecast(data.size(), future - data.size());
