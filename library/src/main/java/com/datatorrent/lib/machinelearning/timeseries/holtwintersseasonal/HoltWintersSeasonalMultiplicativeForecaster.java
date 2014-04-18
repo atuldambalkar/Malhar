@@ -92,6 +92,10 @@ public class HoltWintersSeasonalMultiplicativeForecaster {
             throw new ModelCreationException("No training data available for initializing the model");
         }
 
+        linit = 0;
+        binit = 0;
+        sinit = new double[numPeriods];
+
         this.lcache = new Double[future];
         this.bcache = new Double[future];
         this.scache = new Double[future];
