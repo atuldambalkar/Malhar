@@ -8,10 +8,12 @@ import org.apache.commons.collections.buffer.CircularFifoBuffer;
 import java.util.List;
 
 /**
- * Class that implements Holt Winters' Seasonal Forecasting with Additive Method Model for time series base forecasting with incremental update of the model.
+ * Class that implements Holt Winters' Seasonal Forecasting with Multiplicative Method Model for time series base forecasting with incremental update of the model.
  *
- * For any given input data, in order to calculate Level - lsubt, Trend - bsubt and Seasonality ssubt, only the values for previous record such as
- * lsubt-1, bsubt-1 and ssubt-1 are needed. After building the model based on the initial training data, this class only keeps track of the
+ * For any given input data, in order to calculate Level - lsubt, Trend - bsubt the values for previous records for last one time-series period
+ * are needed. The seasonal values cached are for two time series cycles periods earlier.
+ *
+ * After building the model based on the initial training data, this class only keeps track of the
  * previous values for Level, Trend and Seasonality and uses those values to update the new Level, Trend and Seasonality values.
  *
  * Forecast equation - yhatt+h = (lsubt-1 + h * bsubt-1) * ssubt-m+hsubmplus
