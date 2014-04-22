@@ -40,24 +40,24 @@ public class HoltWintersSeasonalMultiplicativeForecasterTest {
         forecaster.setTimeSeriesData(data);
 
         double value = forecaster.computeForecast(97, true);
-        Assert.assertEquals(293.92549086859265, value);
+        Assert.assertEquals(310.6246300650848, value);
 
         value = forecaster.computeForecast(98, true);
-        Assert.assertEquals(519.5999913418997, value);
+        Assert.assertEquals(317.454808844319, value);
 
         value = forecaster.computeForecast(103, true);
-        Assert.assertEquals(475.7304341569043, value);
+        Assert.assertEquals(492.0680293251041, value);
 
         value = forecaster.computeForecast(97, true);
-        Assert.assertEquals(293.92549086859265, value);
+        Assert.assertEquals(310.6246300650848, value);
 
         value = forecaster.computeForecast(100, true);
-        Assert.assertEquals(341.19124836081465, value);
+        Assert.assertEquals(318.3634418143311, value);
 
         value = forecaster.computeForecast(99, true);
-        Assert.assertEquals(384.4256233650756, value);
+        Assert.assertEquals(350.44673117194776, value);
 
         value = forecaster.computeForecast(110, true);
-        Assert.assertEquals(550.9381231865284, value);
+        Assert.assertEquals(341.84784498513517, value);
     }
 }

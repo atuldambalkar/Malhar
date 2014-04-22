@@ -216,7 +216,7 @@ public class HoltWintersSeasonalMultiplicativeForecaster {
             return 0;
         }
         if (scache[t] == null) {
-            scache[t] = (gamma * (data.get(t) / (recursivelyComputeLevel(t) + recursivelyComputeSlope(t - 1)))) + ((1 - gamma) * recursivelyComputeSeasonality(t - numPeriods));
+            scache[t] = (gamma * (data.get(t - 1) / (recursivelyComputeLevel(t - 1) + recursivelyComputeSlope(t - 1)))) + ((1 - gamma) * recursivelyComputeSeasonality(t - numPeriods));
         }
         return scache[t];
     }
